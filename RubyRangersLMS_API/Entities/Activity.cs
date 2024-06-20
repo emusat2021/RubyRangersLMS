@@ -1,4 +1,4 @@
-﻿namespace RubyRangersLMS_Blazor.Entities
+﻿namespace RubyRangersLMS_API.Entities
 {
     public class Activity : CurriculumEntity
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace RubyRangersLMS_Blazor.Entities
+namespace RubyRangersLMS_API.Entities
 {
     public class Teacher : IdentityUser
     {

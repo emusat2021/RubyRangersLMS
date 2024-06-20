@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RubyRangersLMS_Blazor.Entities
+namespace RubyRangersLMS_API.Entities
 {
     public abstract class CurriculumEntity
     {
