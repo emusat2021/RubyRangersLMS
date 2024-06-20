@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+<Node Id="IModel" Label="LMSContext" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot" PropertyAccessMode="PropertyAccessMode.Default" ProductVersion="8.0.6" Annotations="BaseTypeDiscoveryConvention:DerivedTypes: System.Collections.Generic.Dictionary`2[System.Type,System.Collections.Generic.List`1[Microsoft.EntityFrameworkCore.Metadata.IConventionEntityType]]
+Relational:MaxIdentifierLength: 128
+RelationshipDiscoveryConvention:InverseNavigationCandidates: System.Collections.Generic.Dictionary`2[System.Type,System.Collections.Generic.SortedSet`1[System.Type]]
+SqlServer:ValueGenerationStrategy: IdentityColumn" Category="Model" Group="Expanded" />
+<Node Id = "Activity" Label="Activity" Name="Activity" BaseClass="CurriculumEntity" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="Relational:TableName: Activities
+RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" Category="EntityType" Group="Expanded" />
+<Node Id = "Course" Label="Course" Name="Course" BaseClass="CurriculumEntity" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="Relational:TableName: Courses
+RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" Category="EntityType" Group="Expanded" />
+<Node Id = "Activity.ModuleId" Label="ModuleId (Guid)" Name="ModuleId" Category="Property Foreign" Type="Guid" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="True" IsRequired="True" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Activity.Module" Label="Module (1)" Name="Module" Category="Navigation Property" Type="Module"  Field="" Dependent="" Principal="Module" Inverse="" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "Activity.Activity" Label="Activity (1)" Name="Activity" Category="Navigation Property" Type="{&apos;ModuleId&apos;}"  Field="" Dependent="" Principal="" Inverse="" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "CurriculumEntity" Label="CurriculumEntity" Name="CurriculumEntity" BaseClass="" IsAbstract="True" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="DiscriminatorProperty:
+Relational:MappingStrategy: TPC
+RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" Category="EntityType" Group="Expanded" />
+<Node Id = "Course.TeacherId" Label="TeacherId (Guid?)" Name="TeacherId" Category="Property Foreign" Type="Guid?" MaxLength="None" Field="nofield" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="True" IsRequired="False" IsIndexed="True" IsShadow="True" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Document" Label="Document" Name="Document" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="Relational:TableName: Documents
+RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" Category="EntityType" Group="Expanded" />
+<Node Id = "CurriculumEntity.Id" Label="Id (Guid)" Name="Id" Category="Property Primary" Type="Guid" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "CurriculumEntity.Description" Label="Description (string)" Name="Description" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "CurriculumEntity.EndDate" Label="EndDate (DateTime?)" Name="EndDate" Category="Property Optional" Type="DateTime?" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "CurriculumEntity.EntityType" Label="EntityType (int)" Name="EntityType" Category="Property Required" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "CurriculumEntity.Name" Label="Name (string)" Name="Name" Category="Property Required" Type="string" MaxLength="(15)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 15" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "CurriculumEntity.StartDate" Label="StartDate (DateTime)" Name="StartDate" Category="Property Required" Type="DateTime" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Module" Label="Module" Name="Module" BaseClass="CurriculumEntity" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="Relational:TableName: Modules
+RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" Category="EntityType" Group="Expanded" />
+<Node Id = "Document.DocumentId" Label="DocumentId (Guid)" Name="DocumentId" Category="Property Primary" Type="Guid" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "Document.AttachedToCurriculumEntity" Label="AttachedToCurriculumEntity (1)" Name="AttachedToCurriculumEntity" Category="Navigation Property" Type="CurriculumEntity"  Field="" Dependent="" Principal="CurriculumEntity" Inverse="" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "Document.AttachedToCurriculumEntityId" Label="AttachedToCurriculumEntityId (Guid)" Name="AttachedToCurriculumEntityId" Category="Property Foreign" Type="Guid" MaxLength="None" Field="nofield" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="True" IsRequired="True" IsIndexed="True" IsShadow="True" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Document.DocumentByte" Label="DocumentByte (byte[])" Name="DocumentByte" Category="Property Required" Type="byte[]" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Document.DocumentDescription" Label="DocumentDescription (string)" Name="DocumentDescription" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Document.DocumentName" Label="DocumentName (string)" Name="DocumentName" Category="Property Required" Type="string" MaxLength="(15)" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="MaxLength: 15" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Document.DocumentTimeStamp" Label="DocumentTimeStamp (DateTime)" Name="DocumentTimeStamp" Category="Property Required" Type="DateTime" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Document.FileName" Label="FileName (string)" Name="FileName" Category="Property Required" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Document.OwnedByUserId" Label="OwnedByUserId (Guid)" Name="OwnedByUserId" Category="Property Required" Type="Guid" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Student" Label="Student" Name="Student" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="Relational:TableName: Students
+RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" Category="EntityType" Group="Expanded" />
+<Node Id = "Module.CourseId" Label="CourseId (Guid)" Name="CourseId" Category="Property Foreign" Type="Guid" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="True" IsRequired="True" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Module.Course" Label="Course (1)" Name="Course" Category="Navigation Property" Type="Course"  Field="" Dependent="" Principal="Course" Inverse="" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "Module.Module" Label="Module (1)" Name="Module" Category="Navigation Property" Type="{&apos;CourseId&apos;}"  Field="" Dependent="" Principal="" Inverse="" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "Teacher" Label="Teacher" Name="Teacher" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="Relational:TableName: Teachers
+RelationshipDiscoveryConvention:NavigationCandidates: System.Collections.Immutable.ImmutableSortedDictionary`2[System.Reflection.PropertyInfo,System.ValueTuple`2[System.Type,System.Nullable`1[System.Boolean]]]" Category="EntityType" Group="Expanded" />
+<Node Id = "Student.Id" Label="Id (Guid)" Name="Id" Category="Property Primary" Type="Guid" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "Student.Course" Label="Course (1)" Name="Course" Category="Navigation Property" Type="Course"  Field="" Dependent="" Principal="Course" Inverse="" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "Student.AccessFailedCount" Label="AccessFailedCount (int)" Name="AccessFailedCount" Category="Property Required" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Student.ConcurrencyStamp" Label="ConcurrencyStamp (string)" Name="ConcurrencyStamp" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Student.CourseId" Label="CourseId (Guid)" Name="CourseId" Category="Property Foreign" Type="Guid" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="True" IsRequired="True" IsIndexed="True" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Student.Email" Label="Email (string)" Name="Email" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Student.EmailConfirmed" Label="EmailConfirmed (bool)" Name="EmailConfirmed" Category="Property Required" Type="bool" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Student.LockoutEnabled" Label="LockoutEnabled (bool)" Name="LockoutEnabled" Category="Property Required" Type="bool" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Student.LockoutEnd" Label="LockoutEnd (DateTimeOffset?)" Name="LockoutEnd" Category="Property Optional" Type="DateTimeOffset?" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Student.NormalizedEmail" Label="NormalizedEmail (string)" Name="NormalizedEmail" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Student.NormalizedUserName" Label="NormalizedUserName (string)" Name="NormalizedUserName" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Student.PasswordHash" Label="PasswordHash (string)" Name="PasswordHash" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Student.PhoneNumber" Label="PhoneNumber (string)" Name="PhoneNumber" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Student.PhoneNumberConfirmed" Label="PhoneNumberConfirmed (bool)" Name="PhoneNumberConfirmed" Category="Property Required" Type="bool" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Student.SecurityStamp" Label="SecurityStamp (string)" Name="SecurityStamp" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Student.TwoFactorEnabled" Label="TwoFactorEnabled (bool)" Name="TwoFactorEnabled" Category="Property Required" Type="bool" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Student.UserName" Label="UserName (string)" Name="UserName" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Teacher" Label="Teacher" Name="Teacher" BaseClass="" IsAbstract="False" ChangeTrackingStrategy="ChangeTrackingStrategy.Snapshot"  Annotations="" Category="EntityType" Group="Expanded" />
+<Node Id = "Teacher.Id" Label="Id (Guid)" Name="Id" Category="Property Primary" Type="Guid" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="True" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="ValueGenerated.OnAdd" />
+<Node Id = "Teacher.Courses" Label="Courses (*)" Name="Courses" Category="Navigation Collection" Type="ICollection&lt;Course&gt;"  Field="" Dependent="Course" Principal="" Inverse="" PropertyAccessMode="PropertyAccessMode.Default" />
+<Node Id = "Teacher.AccessFailedCount" Label="AccessFailedCount (int)" Name="AccessFailedCount" Category="Property Required" Type="int" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Teacher.ConcurrencyStamp" Label="ConcurrencyStamp (string)" Name="ConcurrencyStamp" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Teacher.Email" Label="Email (string)" Name="Email" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Teacher.EmailConfirmed" Label="EmailConfirmed (bool)" Name="EmailConfirmed" Category="Property Required" Type="bool" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Teacher.LockoutEnabled" Label="LockoutEnabled (bool)" Name="LockoutEnabled" Category="Property Required" Type="bool" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Teacher.LockoutEnd" Label="LockoutEnd (DateTimeOffset?)" Name="LockoutEnd" Category="Property Optional" Type="DateTimeOffset?" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Teacher.NormalizedEmail" Label="NormalizedEmail (string)" Name="NormalizedEmail" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Teacher.NormalizedUserName" Label="NormalizedUserName (string)" Name="NormalizedUserName" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Teacher.PasswordHash" Label="PasswordHash (string)" Name="PasswordHash" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Teacher.PhoneNumber" Label="PhoneNumber (string)" Name="PhoneNumber" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Teacher.PhoneNumberConfirmed" Label="PhoneNumberConfirmed (bool)" Name="PhoneNumberConfirmed" Category="Property Required" Type="bool" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Teacher.SecurityStamp" Label="SecurityStamp (string)" Name="SecurityStamp" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Teacher.TwoFactorEnabled" Label="TwoFactorEnabled (bool)" Name="TwoFactorEnabled" Category="Property Required" Type="bool" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="True" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+<Node Id = "Teacher.UserName" Label="UserName (string)" Name="UserName" Category="Property Optional" Type="string" MaxLength="None" Field="" PropertyAccessMode="PropertyAccessMode.Default" BeforeSaveBehavior="PropertySaveBehavior.Save" AfterSaveBehavior="PropertySaveBehavior.Save" Annotations="" IsPrimaryKey="False" IsForeignKey="False" IsRequired="False" IsIndexed="False" IsShadow="False" IsAlternateKey="False" IsConcurrencyToken="False" IsUnicode="True" ValueGenerated="None" />
+  </Nodes>
+  <Links>
+<Link Source = "IModel" Target="Activity" Category="Contains" />
+<Link Source = "IModel" Target="Course" Category="Contains" />
+<Link Source = "Activity" Target="Activity.Module" Category="Contains" />
+<Link Source = "Activity" Target="Activity.Activity" Category="Contains" />
+<Link Source = "Activity" Target="Activity.ModuleId" Category="Contains" />
+<Link Source="Activity" Target="Module" From="Activity.ModuleId" To="Module.Id" Name="Activity -> Module" Annotations="" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "IModel" Target="CurriculumEntity" Category="Contains" />
+<Link Source = "Course" Target="Course.TeacherId" Category="Contains" />
+<Link Source="Course" Target="Teacher" From="Course.TeacherId" To="Teacher.Id" Name="Course -> Teacher" Annotations="" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "IModel" Target="Document" Category="Contains" />
+<Link Source = "CurriculumEntity" Target="CurriculumEntity.Id" Category="Contains" />
+<Link Source = "CurriculumEntity" Target="CurriculumEntity.Description" Category="Contains" />
+<Link Source = "CurriculumEntity" Target="CurriculumEntity.EndDate" Category="Contains" />
+<Link Source = "CurriculumEntity" Target="CurriculumEntity.EntityType" Category="Contains" />
+<Link Source = "CurriculumEntity" Target="CurriculumEntity.Name" Category="Contains" />
+<Link Source = "CurriculumEntity" Target="CurriculumEntity.StartDate" Category="Contains" />
+<Link Source = "IModel" Target="Module" Category="Contains" />
+<Link Source = "Document" Target="Document.AttachedToCurriculumEntity" Category="Contains" />
+<Link Source = "Document" Target="Document.DocumentId" Category="Contains" />
+<Link Source="Document" Target="CurriculumEntity" From="Document.AttachedToCurriculumEntityId" To="CurriculumEntity.Id" Name="Document -> CurriculumEntity" Annotations="" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "Document" Target="Document.AttachedToCurriculumEntityId" Category="Contains" />
+<Link Source = "Document" Target="Document.DocumentByte" Category="Contains" />
+<Link Source = "Document" Target="Document.DocumentDescription" Category="Contains" />
+<Link Source = "Document" Target="Document.DocumentName" Category="Contains" />
+<Link Source = "Document" Target="Document.DocumentTimeStamp" Category="Contains" />
+<Link Source = "Document" Target="Document.FileName" Category="Contains" />
+<Link Source = "Document" Target="Document.OwnedByUserId" Category="Contains" />
+<Link Source = "IModel" Target="Student" Category="Contains" />
+<Link Source = "Module" Target="Module.Course" Category="Contains" />
+<Link Source = "Module" Target="Module.Module" Category="Contains" />
+<Link Source = "Module" Target="Module.CourseId" Category="Contains" />
+<Link Source="Module" Target="Course" From="Module.CourseId" To="Course.Id" Name="Module -> Course" Annotations="" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "IModel" Target="Teacher" Category="Contains" />
+<Link Source = "Student" Target="Student.Course" Category="Contains" />
+<Link Source = "Student" Target="Student.Id" Category="Contains" />
+<Link Source="Student" Target="Course" From="Student.CourseId" To="Course.Id" Name="Student -> Course" Annotations="" IsUnique="False" Label="1:*" Category="Foreign Key" />
+<Link Source = "Student" Target="Student.AccessFailedCount" Category="Contains" />
+<Link Source = "Student" Target="Student.ConcurrencyStamp" Category="Contains" />
+<Link Source = "Student" Target="Student.CourseId" Category="Contains" />
+<Link Source = "Student" Target="Student.Email" Category="Contains" />
+<Link Source = "Student" Target="Student.EmailConfirmed" Category="Contains" />
+<Link Source = "Student" Target="Student.LockoutEnabled" Category="Contains" />
+<Link Source = "Student" Target="Student.LockoutEnd" Category="Contains" />
+<Link Source = "Student" Target="Student.NormalizedEmail" Category="Contains" />
+<Link Source = "Student" Target="Student.NormalizedUserName" Category="Contains" />
+<Link Source = "Student" Target="Student.PasswordHash" Category="Contains" />
+<Link Source = "Student" Target="Student.PhoneNumber" Category="Contains" />
+<Link Source = "Student" Target="Student.PhoneNumberConfirmed" Category="Contains" />
+<Link Source = "Student" Target="Student.SecurityStamp" Category="Contains" />
+<Link Source = "Student" Target="Student.TwoFactorEnabled" Category="Contains" />
+<Link Source = "Student" Target="Student.UserName" Category="Contains" />
+<Link Source = "IModel" Target="Teacher" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.Courses" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.Id" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.AccessFailedCount" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.ConcurrencyStamp" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.Email" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.EmailConfirmed" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.LockoutEnabled" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.LockoutEnd" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.NormalizedEmail" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.NormalizedUserName" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.PasswordHash" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.PhoneNumber" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.PhoneNumberConfirmed" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.SecurityStamp" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.TwoFactorEnabled" Category="Contains" />
+<Link Source = "Teacher" Target="Teacher.UserName" Category="Contains" />
+  </Links>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="EntityType" ValueLabel="True">
+      <Condition Expression="HasCategory('EntityType')" />
+      <Setter Property="Background" Value="#FFC0C0C0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Primary" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Primary')" />
+      <Setter Property="Background" Value="#FF008000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Optional" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Optional')" />
+      <Setter Property="Background" Value="#FF808040" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Foreign" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Foreign')" />
+      <Setter Property="Background" Value="#FF8080FF" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Property Required" ValueLabel="True">
+      <Condition Expression="HasCategory('Property Required')" />
+      <Setter Property="Background" Value="#FFC0A000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Navigation Property" ValueLabel="True">
+      <Condition Expression="HasCategory('Navigation Property')" />
+      <Setter Property="Background" Value="#FF990000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Navigation Collection" ValueLabel="True">
+      <Condition Expression="HasCategory('Navigation Collection')" />
+      <Setter Property="Background" Value="#FFFF3232" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Model" ValueLabel="True">
+      <Condition Expression="HasCategory('Model')" />
+      <Setter Property="Background" Value="#FFFFFFFF" />
+    </Style>
+  </Styles>
+  <Properties>
+    <Property Id="Name" Group="Model Properties" DataType="System.String" />
+    <Property Id="Field"  Description="Backing field" Group="Model Properties" DataType="System.String" />
+    <Property Id="Type"  Description="CLR data type" Group="Model Properties" DataType="System.String" />
+    <Property Id="To" Description="Source property" Group="Model Properties" DataType="System.String" />
+    <Property Id="From" Description="Target property" Group="Model Properties" DataType="System.String" />
+    <Property Id="Dependent" Description="Dependent entity" Group="Model Properties" DataType="System.String" />
+    <Property Id="Inverse" Description="Inverse entity" Group="Model Properties" DataType="System.String" />
+    <Property Id="Principal" Description="Principal entity" Group="Model Properties" DataType="System.String" />    
+    <Property Id="Annotations" Description="Annotations" Group="Model Properties" DataType="System.String" />
+    <Property Id="BaseClass"  Description="Base class" Group="Model Properties" DataType="System.String" />
+    <Property Id="ChangeTrackingStrategy" Description="Change tracking strategy" Group="Model Properties" DataType="System.String" />
+    <Property Id="IsUnique" Group="Model Properties" DataType="System.Boolean" />
+    <Property Id="IsAbstract" Group="Model Properties" DataType="System.Boolean" />
+    <Property Id="ProductVersion" Label="Product Version" Description="EF Core product version" Group="Model Properties" DataType="System.String" />
+    <Property Id="IsIndexed" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsRequired" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsPrimaryKey" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsForeignKey" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsShadow" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsAlternateKey" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsConcurrencyToken" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsIndexed" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="IsUnicode" Group="Property Flags" DataType="System.Boolean" />
+    <Property Id="ValueGenerated" Group="Property Flags" DataType="System.String" />
+    <Property Id="BeforeSaveBehavior" Group="Property Flags" DataType="System.String" />
+    <Property Id="AfterSaveBehavior" Group="Property Flags" DataType="System.String" />
+    <Property Id="PropertyAccessMode" Group="Property Flags" DataType="System.String" />
+  </Properties>
+</DirectedGraph>

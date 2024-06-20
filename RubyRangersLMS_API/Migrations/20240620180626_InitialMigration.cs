@@ -6,11 +6,29 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RubyRangersLMS_API.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Documents",
+                columns: table => new
+                {
+                    DocumentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DocumentName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    DocumentDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DocumentTimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DocumentByte = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    AttachedToCurriculumEntityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OwnedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Documents", x => x.DocumentId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Teachers",
                 columns: table => new
@@ -136,35 +154,6 @@ namespace RubyRangersLMS_API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Documents",
-                columns: table => new
-                {
-                    DocumentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DocumentName = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    DocumentDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DocumentTimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DocumentByte = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    OwnerGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Documents", x => x.DocumentId);
-                    table.ForeignKey(
-                        name: "FK_Documents_Students_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Students",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Documents_Teachers_TeacherId",
-                        column: x => x.TeacherId,
-                        principalTable: "Teachers",
-                        principalColumn: "Id");
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Activities_ModuleId",
                 table: "Activities",
@@ -176,14 +165,9 @@ namespace RubyRangersLMS_API.Migrations
                 column: "TeacherId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Documents_StudentId",
+                name: "IX_Documents_AttachedToCurriculumEntityId",
                 table: "Documents",
-                column: "StudentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Documents_TeacherId",
-                table: "Documents",
-                column: "TeacherId");
+                column: "AttachedToCurriculumEntityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Modules_CourseId",
@@ -206,10 +190,10 @@ namespace RubyRangersLMS_API.Migrations
                 name: "Documents");
 
             migrationBuilder.DropTable(
-                name: "Modules");
+                name: "Students");
 
             migrationBuilder.DropTable(
-                name: "Students");
+                name: "Modules");
 
             migrationBuilder.DropTable(
                 name: "Courses");

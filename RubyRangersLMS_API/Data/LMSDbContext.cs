@@ -10,7 +10,6 @@ namespace RubyRangersLMS_API.Data
 
         }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CurriculumEntity>().UseTpcMappingStrategy();
