@@ -80,17 +80,7 @@ namespace RubyRangersLMS_API.Migrations
                     b.Property<Guid>("OwnerGuid")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("StudentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("TeacherId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("DocumentId");
-
-                    b.HasIndex("StudentId");
-
-                    b.HasIndex("TeacherId");
 
                     b.ToTable("Documents");
                 });
@@ -242,17 +232,6 @@ namespace RubyRangersLMS_API.Migrations
                     b.ToTable("Modules");
                 });
 
-            modelBuilder.Entity("RubyRangersLMS_API.Entities.Document", b =>
-                {
-                    b.HasOne("RubyRangersLMS_API.Entities.Student", null)
-                        .WithMany("OwnedDocuments")
-                        .HasForeignKey("StudentId");
-
-                    b.HasOne("RubyRangersLMS_API.Entities.Teacher", null)
-                        .WithMany("OwnedDocuments")
-                        .HasForeignKey("TeacherId");
-                });
-
             modelBuilder.Entity("RubyRangersLMS_API.Entities.Student", b =>
                 {
                     b.HasOne("RubyRangersLMS_API.Entities.Course", "Course")
@@ -293,16 +272,9 @@ namespace RubyRangersLMS_API.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("RubyRangersLMS_API.Entities.Student", b =>
-                {
-                    b.Navigation("OwnedDocuments");
-                });
-
             modelBuilder.Entity("RubyRangersLMS_API.Entities.Teacher", b =>
                 {
                     b.Navigation("Courses");
-
-                    b.Navigation("OwnedDocuments");
                 });
 #pragma warning restore 612, 618
         }
