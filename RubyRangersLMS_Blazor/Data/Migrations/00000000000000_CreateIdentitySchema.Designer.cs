@@ -11,7 +11,7 @@ using System;
 
 namespace RubyRangersLMS_Blazor.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(LMSDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {

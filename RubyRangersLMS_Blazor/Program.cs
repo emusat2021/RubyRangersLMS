@@ -24,12 +24,21 @@ builder.Services.AddAuthentication(options =>
     .AddIdentityCookies();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<LMSDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+// Seed the database
+//var options = new DbContextOptionsBuilder<LMSDbContext>()
+//  .UseSqlServer(connectionString) // Reuse the same connection string
+//  .Options;
+
+//using var context = new LMSDbContext(options);
+//SeedData.Initialize(context, CurriculumEntity);
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddEntityFrameworkStores<LMSDbContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
