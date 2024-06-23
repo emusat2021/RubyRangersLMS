@@ -17,7 +17,13 @@ namespace RubyRangersLMS_API.Entities
         public string FileName { get; set; }
         [Required]
         public byte[] DocumentByte { get; set; }
+
+        // Navigation property: Course/Module/Activity.
+        // This can be NULL, equals that it is a "general" file not related to a Course/Module/Activity. 
+        public virtual CurriculumEntity AttachedToCurriculumEntity { get; set; } 
+
+        // The spcific owner of the file. StudenId or TeacherId is stored here.
         [Required]
-        public Guid OwnerGuid { get; set; }
+        public Guid OwnedByUserId { get; set; }
     }
 }

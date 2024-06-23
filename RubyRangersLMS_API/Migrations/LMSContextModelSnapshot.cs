@@ -58,6 +58,9 @@ namespace RubyRangersLMS_API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AttachedToCurriculumEntityId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<byte[]>("DocumentByte")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
@@ -77,10 +80,12 @@ namespace RubyRangersLMS_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("OwnerGuid")
+                    b.Property<Guid>("OwnedByUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("DocumentId");
+
+                    b.HasIndex("AttachedToCurriculumEntityId");
 
                     b.ToTable("Documents");
                 });
@@ -230,6 +235,17 @@ namespace RubyRangersLMS_API.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("Modules");
+                });
+
+            modelBuilder.Entity("RubyRangersLMS_API.Entities.Document", b =>
+                {
+                    b.HasOne("RubyRangersLMS_API.Entities.CurriculumEntity", "AttachedToCurriculumEntity")
+                        .WithMany()
+                        .HasForeignKey("AttachedToCurriculumEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AttachedToCurriculumEntity");
                 });
 
             modelBuilder.Entity("RubyRangersLMS_API.Entities.Student", b =>

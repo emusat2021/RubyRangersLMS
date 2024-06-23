@@ -21,7 +21,8 @@ namespace RubyRangersLMS_API.Migrations
                     DocumentTimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DocumentByte = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    OwnerGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AttachedToCurriculumEntityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OwnedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -162,6 +163,11 @@ namespace RubyRangersLMS_API.Migrations
                 name: "IX_Courses_TeacherId",
                 table: "Courses",
                 column: "TeacherId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Documents_AttachedToCurriculumEntityId",
+                table: "Documents",
+                column: "AttachedToCurriculumEntityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Modules_CourseId",
