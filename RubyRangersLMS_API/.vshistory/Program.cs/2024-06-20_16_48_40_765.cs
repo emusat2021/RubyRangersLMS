@@ -12,13 +12,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContextFactory<LMSContext>(options =>
     options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("CorsPolicy", builder =>
-    {
-        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-    });
-});
 
 var app = builder.Build();
 
@@ -27,9 +20,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LexiconLMS API v1"));
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
