@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using RubyRangersLMS_API.Data;
 using RubyRangersLMS_API.Entities;
 using RubyRangersLMS_API.ViewModels;
 
@@ -9,6 +11,13 @@ namespace RubyRangersLMS_API.Controllers
     [Route("api/teachers")]
     public class TeachersController : ControllerBase
     {
+        private readonly LMSContext _context;
+
+        public TeachersController(LMSContext context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<TeacherViewModel>> GetTeachers()
         {
@@ -23,6 +32,22 @@ namespace RubyRangersLMS_API.Controllers
             }).ToList();
 
             return Ok(response);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<TeacherCreateModel>> CreateTeacher(TeacherCreateModel teacherCreateModel)
+        {
+            var teacher = new Teacher
+            {
+                Id = Guid.NewGuid(),
+                UserName = teacherCreateModel.UserName,
+                FullName = teacherCreateModel.FullName,
+                Email = teacherCreateModel.Email,
+            };
+            // todo: implement correct DbContext
+            //_context.Teachers.Add(teacher);
+            //await _context.SaveChangesAsync();
+            return Ok(teacherCreateModel);
         }
     }
 }
