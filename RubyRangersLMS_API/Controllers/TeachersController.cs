@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RubyRangersLMS_API.Entities;
 
 namespace RubyRangersLMS_API.Controllers
 {
@@ -8,11 +9,9 @@ namespace RubyRangersLMS_API.Controllers
     public class TeachersController : ControllerBase
     {
         [HttpGet]
-        public JsonResult GetTeachers()
+        public ActionResult<IEnumerable<Teacher>> GetTeachers()
         {
-            return new JsonResult(
-            new List<object>{
-            new {id = 1, Name = "Teacher1"} });
+            return Ok(TeachersFakeData.Current.Teachers);
         }
     }
 }
