@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using RubyRangersLMS_API.Entities;
 using RubyRangersLMS_API.IRepositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace RubyRangersLMS_API.Controllers
 {
@@ -10,13 +10,14 @@ namespace RubyRangersLMS_API.Controllers
     public class StudentController : ControllerBase
     {
         private readonly IUoW uow;
+        //private readonly LMSDBContext context;
 
         public StudentController(IUoW uow)
         {
             this.uow = uow;
         }
 
-        // GET: api/<StudentController>
+        // GET: api/Student
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
@@ -37,7 +38,7 @@ namespace RubyRangersLMS_API.Controllers
             return student;
         }
 
-        // POST api/<StudentController>
+        // POST api/Student
         [HttpPost]
         public async Task<ActionResult<Student>> PostStudent(Student student)
         {

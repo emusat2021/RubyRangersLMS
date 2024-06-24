@@ -15,9 +15,9 @@ namespace RubyRangersLMS_API.Repository
         }
         public IRepository<Student> studentRepository { get; set; }
 
-        public Task CompleteAsync()
+        public async Task CompleteAsync()
         {
-            throw new NotImplementedException();
+            await dbContext.SaveChangesAsync();
         }
     }
 }

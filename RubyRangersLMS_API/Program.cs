@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RubyRangersLMS_API.Data;
+using RubyRangersLMS_API.IRepositories;
+using RubyRangersLMS_API.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -19,6 +21,8 @@ builder.Services.AddCors(options =>
         builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
     });
 });
+
+builder.Services.AddScoped<IUoW, UoW>();
 
 var app = builder.Build();
 
