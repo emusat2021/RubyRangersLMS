@@ -1,4 +1,5 @@
 ﻿using RubyRangersLMS_API.Entities;
+using RubyRangersLMS_API.ViewModels;
 
 namespace RubyRangersLMS_API
 {
