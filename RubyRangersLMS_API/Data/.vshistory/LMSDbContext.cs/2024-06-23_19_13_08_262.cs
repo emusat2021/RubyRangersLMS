@@ -9,12 +9,12 @@ namespace RubyRangersLMS_API.Data
         {
 
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CurriculumEntity>().UseTpcMappingStrategy();
         }
-
-        public DbSet<Student> Students { get; set; }
+        public DbSet<Student> Students { get; set; } = default;
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<CurriculumEntity> CurriculumEntities { get; set; }
