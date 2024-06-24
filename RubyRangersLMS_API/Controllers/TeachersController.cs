@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace RubyRangersLMS_API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/teachers")]
     public class TeachersController : ControllerBase
     {
-        [HttpGet("api/teachers")]
+        [HttpGet]
         public JsonResult GetTeachers()
         {
             return new JsonResult(
