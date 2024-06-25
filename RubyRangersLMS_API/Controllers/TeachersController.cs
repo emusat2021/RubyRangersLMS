@@ -19,12 +19,16 @@ namespace RubyRangersLMS_API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<TeacherViewModel>> GetTeachers()
+        public async Task <ActionResult<IEnumerable<TeacherViewModel>>> GetTeachers()
         {
             try
             {
 
                 var teachers = _context.Teachers;
+                if (teachers == null)
+                {
+                    return NotFound();
+                }
                 var response = teachers.Select(t => new TeacherViewModel
                 {
                     Id = t.Id,
