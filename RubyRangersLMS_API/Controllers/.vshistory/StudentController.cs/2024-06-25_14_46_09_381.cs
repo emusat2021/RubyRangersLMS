@@ -7,7 +7,7 @@ using RubyRangersLMS_API.IRepositories;
 
 namespace RubyRangersLMS_API.Controllers
 {
-    [Route("api/student")]
+    [Route("api/students")]
     [ApiController]
     public class StudentController : ControllerBase
     {

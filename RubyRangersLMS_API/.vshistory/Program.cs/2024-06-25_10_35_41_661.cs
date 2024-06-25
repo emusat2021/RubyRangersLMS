@@ -18,6 +18,15 @@ builder.Services.AddControllers(opt => opt.ReturnHttpNotAcceptable = true)
     .AddNewtonsoftJson()
     .AddXmlDataContractSerializerFormatters();
 
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("CorsPolicy", builder =>
+//    {
+//        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+//    });
+//});
+
 builder.Services.AddScoped<IUoW, UoW>();
 builder.Services.AddAutoMapper(typeof(LmsMappings));
 

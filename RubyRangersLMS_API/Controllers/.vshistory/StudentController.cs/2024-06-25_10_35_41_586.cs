@@ -7,7 +7,7 @@ using RubyRangersLMS_API.IRepositories;
 
 namespace RubyRangersLMS_API.Controllers
 {
-    [Route("api/student")]
+    [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
     {
@@ -20,7 +20,7 @@ namespace RubyRangersLMS_API.Controllers
             this.mapper = mapper;
         }
 
-        // GET: api/student
+        // GET: api/Student
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StudentDto>>> GetAllStudents()
         {
@@ -33,7 +33,7 @@ namespace RubyRangersLMS_API.Controllers
             return Ok(studentsDto);
         }
 
-        // GET api/student/5
+        // GET api/Student/5
         [HttpGet("{id}")]
         public async Task<ActionResult<StudentDto>> GetStudent(Guid id)
         {
@@ -46,7 +46,7 @@ namespace RubyRangersLMS_API.Controllers
             return Ok(studentDto);
         }
 
-        // POST api/student
+        // POST api/Student
         [HttpPost]
         public async Task<ActionResult> PostStudent(StudentDto studentDto)
         {
@@ -65,7 +65,7 @@ namespace RubyRangersLMS_API.Controllers
             return CreatedAtAction(nameof(GetStudent), new { id = student.Id }, student);
         }
 
-        // PUT api/student/5
+        // PUT api/<StudentController>/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStudent(Guid id, StudentDto studentDto)
         {
@@ -86,7 +86,7 @@ namespace RubyRangersLMS_API.Controllers
             return NoContent();
         }
 
-        // DELETE api/student/5
+        // DELETE api/Student/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(Guid id)
         {

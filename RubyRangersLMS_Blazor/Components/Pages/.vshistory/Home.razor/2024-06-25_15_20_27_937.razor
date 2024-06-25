@@ -1,0 +1,35 @@
+﻿@page "/"
+@using RubyRangersLMS_API.Dtos
+@using RubyRangersLMS_Blazor.Services
+@inject StudentService StudentService
+
+<h3>Students</h3>
+
+@if (students == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    foreach (var student in students)
+    {
+
+        <div>@student.CourseId</div>
+        <div>@student.Email</div>
+        <div>@student.EmailConfirmed</div>
+        <div>@student.PhoneNumber</div>
+        <div>@student.PhoneNumberConfirmed</div>
+        <div>@student.TwoFactorEnabled</div>
+        <div>@student.LockoutEnabled</div>
+        <div>@student.AccessFailedCount</div>
+    }
+}
+
+@code {
+    private List<StudentDto> students;
+
+    protected override async Task OnInitializedAsync()
+    {
+        students = await StudentService.GetStudentsAsync();
+    }
+}
