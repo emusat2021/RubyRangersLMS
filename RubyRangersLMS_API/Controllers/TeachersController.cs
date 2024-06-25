@@ -72,7 +72,7 @@ namespace RubyRangersLMS_API.Controllers
         {
             try
             {
-                var teacher = _context.Teachers.Find(id);
+                var teacher = _context.Teachers.FirstOrDefault(t => t.Id == id);
                 if (teacher == null)
                 {
                     return NotFound($"Teacher is not found with id{id}");
