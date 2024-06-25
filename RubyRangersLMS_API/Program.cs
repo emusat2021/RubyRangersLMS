@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RubyRangersLMS_API.Data;
 
@@ -12,6 +13,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContextFactory<LMSContext>(options =>
     options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
 
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<LMSContext>()
+    .AddDefaultTokenProviders();
 
 var app = builder.Build();
 
