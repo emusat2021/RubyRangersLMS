@@ -62,5 +62,25 @@ namespace RubyRangersLMS_API.Controllers
             await _context.SaveChangesAsync();
             return Ok(teacherCreateModel);
         }
+
+        [HttpDelete]
+        public async Task<ActionResult<TeacherDeleteModel>> DeleteTeacher(Guid id)
+        {
+            try
+            {
+                var teacher = _context.Teachers.Find(id);
+                if (teacher == null)
+                {
+                    return NotFound($"Teacher is not found with id{id}");
+                }
+                _context.Teachers.Remove(teacher);
+                await _context.SaveChangesAsync();
+                return Ok("Teacher deleted...");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
