@@ -11,6 +11,7 @@ namespace RubyRangersLMS_API.Repository
         {
             this.dbContext = dbContext;
             studentRepository = new StudentRepository(dbContext);
+
         }
         public IRepository<Student> studentRepository { get; set; }
 

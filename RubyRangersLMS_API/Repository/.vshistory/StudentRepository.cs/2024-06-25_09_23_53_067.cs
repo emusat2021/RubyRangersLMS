@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RubyRangersLMS_API.Data;
 using RubyRangersLMS_API.IRepositories;
 using RubyRangersLMS_API.Entities;
@@ -19,17 +20,18 @@ namespace RubyRangersLMS_API.Repository
             context.Students.Add(student);
         }
 
-        public async void Remove(Student student)
+        public async void Remove(Guid id)
         {
+            var student = await context.Students.FindAsync(id);
             context.Remove<Student>(student);
         }
 
-        public async Task<IEnumerable<Student>> GetAll()
-        {
-            return await context.Students.ToListAsync();
+        public List<Student> GetAll()
+        { 
+            return context.Students.ToListAsync().Result;
         }
 
-        public async Task<Student> GetById(Guid id)
+        public async Task<ActionResult<Student>> GetById(Guid id)
         {
             return await context.Students.FindAsync(id);
         }

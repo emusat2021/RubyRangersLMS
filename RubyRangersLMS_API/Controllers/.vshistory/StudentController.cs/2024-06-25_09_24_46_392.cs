@@ -22,25 +22,29 @@ namespace RubyRangersLMS_API.Controllers
 
         // GET: api/Student
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<StudentDto>>> GetAllStudents()
+        public async Task<ActionResult<IEnumerable<StudentDto>>> GetStudents()
         {
-            var students = await uow.studentRepository.GetAll();
+            var students = uow.studentRepository.GetAll();
 
             if (students == null)
+            {
                 return NotFound();
-
-            var studentsDto = mapper.Map<IEnumerable<StudentDto>>(students);
+            }
+            var studentsDto = students.Select(student => mapper.Map<StudentDto>(student)).ToList();
+            //var studentsDto = mapper.Map<IEnumerable<StudentDto>>(students);
             return Ok(studentsDto);
         }
 
         // GET api/Student/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<StudentDto>> GetStudent(Guid id)
+        public async Task<ActionResult<Student>> GetStudent(Guid id)
         {
             var student = await uow.studentRepository.GetById(id);
 
             if (student == null)
+            {
                 return NotFound();
+            }
 
             var studentDto = mapper.Map<StudentDto>(student);
             return Ok(studentDto);
@@ -48,9 +52,8 @@ namespace RubyRangersLMS_API.Controllers
 
         // POST api/Student
         [HttpPost]
-        public async Task<ActionResult> PostStudent(StudentDto studentDto)
+        public async Task<ActionResult<Student>> PostStudent(Student student)
         {
-            var student = mapper.Map<Student>(studentDto);
             uow.studentRepository.Create(student);
 
             try
@@ -67,10 +70,12 @@ namespace RubyRangersLMS_API.Controllers
 
         // PUT api/<StudentController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudent(Guid id, StudentDto studentDto)
+        public async Task<IActionResult> PutStudent(Guid id, Student student)
         {
-            var student = mapper.Map<Student>(studentDto);
-            student.Id = id;
+            if (id != student.Id)
+            {
+                return BadRequest();
+            }
 
             uow.studentRepository.Update(student);
 
@@ -90,12 +95,7 @@ namespace RubyRangersLMS_API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(Guid id)
         {
-            var student = await uow.studentRepository.GetById(id);
-
-            if (student == null)
-                return NotFound();
-
-            uow.studentRepository.Remove(student);
+            uow.studentRepository.Remove(id);
 
             try
             {

@@ -1,13 +1,16 @@
 ﻿
+using Microsoft.AspNetCore.Mvc;
+using RubyRangersLMS_API.Entities;
+
 namespace RubyRangersLMS_API.IRepositories
 {
     public interface IRepository<T>
     {
-        Task<IEnumerable<T>> GetAll();
-        Task<T> GetById(Guid id);
+        Task<ActionResult<IEnumerable<T>>> GetAll();
+        Task<ActionResult<T>> GetById(Guid id);
         Task<bool> AnyAsync(Guid id);
         void Create(T entity);
         void Update(T entity);
-        void Remove(T entity);
+        void Remove(Guid id);
     }
 }

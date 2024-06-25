@@ -28,7 +28,7 @@ builder.Services.AddControllers(opt => opt.ReturnHttpNotAcceptable = true)
 //});
 
 builder.Services.AddScoped<IUoW, UoW>();
-builder.Services.AddAutoMapper(typeof(LmsMappings));
+builder.Services.AddAutoMapper(typeof(LmsMappings).Assembly);
 
 var app = builder.Build();
 

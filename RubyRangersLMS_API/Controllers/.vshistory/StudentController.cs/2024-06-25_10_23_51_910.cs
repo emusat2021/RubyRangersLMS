@@ -70,7 +70,6 @@ namespace RubyRangersLMS_API.Controllers
         public async Task<IActionResult> PutStudent(Guid id, StudentDto studentDto)
         {
             var student = mapper.Map<Student>(studentDto);
-            student.Id = id;
 
             uow.studentRepository.Update(student);
 

@@ -11,12 +11,13 @@ namespace RubyRangersLMS_API.Repository
         {
             this.dbContext = dbContext;
             studentRepository = new StudentRepository(dbContext);
+
         }
         public IRepository<Student> studentRepository { get; set; }
 
-        public async Task CompleteAsync()
+        public Task CompleteAsync()
         {
-            await dbContext.SaveChangesAsync();
+            throw new NotImplementedException();
         }
     }
 }

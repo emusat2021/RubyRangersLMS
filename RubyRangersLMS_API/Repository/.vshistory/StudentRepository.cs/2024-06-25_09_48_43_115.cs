@@ -19,8 +19,9 @@ namespace RubyRangersLMS_API.Repository
             context.Students.Add(student);
         }
 
-        public async void Remove(Student student)
+        public async void Remove(Guid id)
         {
+            var student = await context.Students.FindAsync(id);
             context.Remove<Student>(student);
         }
 

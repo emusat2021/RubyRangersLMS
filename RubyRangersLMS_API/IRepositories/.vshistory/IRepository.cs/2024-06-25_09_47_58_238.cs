@@ -8,6 +8,6 @@ namespace RubyRangersLMS_API.IRepositories
         Task<bool> AnyAsync(Guid id);
         void Create(T entity);
         void Update(T entity);
-        void Remove(T entity);
+        void Remove(Guid id);
     }
 }

@@ -69,9 +69,10 @@ namespace RubyRangersLMS_API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStudent(Guid id, StudentDto studentDto)
         {
-            var student = mapper.Map<Student>(studentDto);
-            student.Id = id;
+            if (id != studentDto.Id)
+                return BadRequest();
 
+            var student = mapper.Map<Student>(studentDto);
             uow.studentRepository.Update(student);
 
             try
