@@ -21,17 +21,30 @@ namespace RubyRangersLMS_API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<TeacherViewModel>> GetTeachers()
         {
-            var teachers = TeachersFakeData.Current.Teachers;
-            var response = teachers.Select(t => new TeacherViewModel
+            try
             {
-                Id = t.Id,
-                UserName = t.UserName,
-                FullName = t.FullName,
-                Email = t.Email,
+                
+                var teachers = _context.Teachers;
+                var response = teachers.Select(t => new TeacherViewModel
+                {
+                    Id = t.Id,
+                    UserName = t.UserName,
+                    FullName = t.FullName,
+                    Email = t.Email,
 
-            }).ToList();
+                }).ToList();
 
-            return Ok(response);
+                if (response.Count == 0)
+                {
+                    return NotFound("No data Found...");
+                }
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpPost]
@@ -44,10 +57,10 @@ namespace RubyRangersLMS_API.Controllers
                 FullName = teacherCreateModel.FullName,
                 Email = teacherCreateModel.Email,
             };
-            // todo: implement correct DbContext
-            //_context.Teachers.Add(teacher);
-            //await _context.SaveChangesAsync();
+            _context.Teachers.Add(teacher);
+            await _context.SaveChangesAsync();
             return Ok(teacherCreateModel);
         }
+
     }
 }
