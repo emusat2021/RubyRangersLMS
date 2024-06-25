@@ -67,7 +67,7 @@ namespace RubyRangersLMS_API.Controllers
             return Ok(teacherCreateModel);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<TeacherDeleteModel>> DeleteTeacher(Guid id)
         {
             try
