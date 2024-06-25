@@ -57,9 +57,9 @@ namespace RubyRangersLMS_API.Controllers
                 FullName = teacherCreateModel.FullName,
                 Email = teacherCreateModel.Email,
             };
-            // todo: implement correct DbContext
-            //_context.Teachers.Add(teacher);
-            //await _context.SaveChangesAsync();
+
+            _context.Teachers.Add(teacher);
+            await _context.SaveChangesAsync();
             return Ok(teacherCreateModel);
         }
     }
