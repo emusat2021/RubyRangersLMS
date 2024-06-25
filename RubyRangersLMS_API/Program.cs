@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContextFactory<LMSContext>(options =>
     options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
+builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 
 builder.Services.AddCors(options =>
 {
