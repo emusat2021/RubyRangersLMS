@@ -9,5 +9,6 @@ namespace RubyRangersLMS_API.Entities
         public ICollection<Course> Courses { get; set; }
         [NotMapped]
         public ICollection<Document> OwnedDocuments { get; set; }
+        public string FullName { get; set; }
     }
 }
