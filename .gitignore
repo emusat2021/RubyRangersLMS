@@ -361,3 +361,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Visual Studio History (VSHistory) files
+.vshistory/
+
+# Ignore all files in the Migrations folder
+Migrations/
+/RubyRangersLMS_API/Migrations/20240626105903_Init.cs
+/RubyRangersLMS_API/Migrations/20240626105903_Init.Designer.cs
+/RubyRangersLMS_API/Migrations/LMSContextModelSnapshot.cs
