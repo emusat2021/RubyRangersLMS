@@ -1,46 +1,32 @@
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RubyRangersLMS_API.Entities;
+using RubyRangersLMS_API.Identity;
+
 
 namespace RubyRangersLMS_API.Data
 {
-    public class LMSContext : IdentityDbContext<IdentityUser>
+    public class LMSContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
-        // public class LMSContext : DbContext
-        // public class LMSContext : IdentityDbContext<IdentityUser>
         public LMSContext(DbContextOptions<LMSContext> options) : base(options)
         {
-
         }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<CurriculumEntity>().UseTpcMappingStrategy();
 
-            modelBuilder.Entity<Student>(entity =>
-            {
-                entity.HasMany(e => e.OwnedDocuments)
-                    .WithOne(d => d.Owner)
-                    .HasForeignKey(d => d.OwnerId);
 
-                entity.HasOne(e => e.Course)
-                    .WithMany(c => c.Students)
-                    .HasForeignKey(e => e.CourseId);
-            });
-
-            modelBuilder.Entity<Teacher>(entity =>
-            {
-                entity.HasMany(e => e.OwnedDocuments)
-                    .WithOne(d => d.Owner)
-                    .HasForeignKey(d => d.OwnerId);
-
-                entity.HasMany(e => e.Courses)
-                    .WithOne(c => c.Teacher)
-                    .HasForeignKey(c => c.TeacherId);
-            });
+            // Disable cascading delete for relationships involving Teachers and Courses
+            //modelBuilder.Entity<Course>()
+            //    .HasOne(c => c.Teacher)
+            //    .WithMany(t => t.Courses)
+            //    .HasForeignKey(c => c.TeacherId)
+            //    .OnDelete(DeleteBehavior.Restrict);
         }
+
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Document> Documents { get; set; }
@@ -48,8 +34,5 @@ namespace RubyRangersLMS_API.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<Module> Modules { get; set; }
         public DbSet<Activity> Activities { get; set; }
-
     }
 }
-
-
