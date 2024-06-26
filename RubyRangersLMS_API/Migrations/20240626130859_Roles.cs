@@ -5,12 +5,22 @@
 namespace RubyRangersLMS_API.Migrations
 {
     /// <inheritdoc />
-    public partial class IdentityAddition : Migration
+    public partial class Roles : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Courses_AspNetUsers_TeacherId",
+                table: "Courses");
 
+            migrationBuilder.AddForeignKey(
+                name: "FK_Courses_AspNetUsers_TeacherId",
+                table: "Courses",
+                column: "TeacherId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         /// <inheritdoc />
@@ -26,7 +36,7 @@ namespace RubyRangersLMS_API.Migrations
                 column: "TeacherId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Cascade);
         }
     }
 }
