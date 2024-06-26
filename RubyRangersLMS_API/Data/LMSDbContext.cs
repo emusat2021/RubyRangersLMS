@@ -20,11 +20,11 @@ namespace RubyRangersLMS_API.Data
 
 
             // Disable cascading delete for relationships involving Teachers and Courses
-            //modelBuilder.Entity<Course>()
-            //    .HasOne(c => c.Teacher)
-            //    .WithMany(t => t.Courses)
-            //    .HasForeignKey(c => c.TeacherId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Course>()
+                .HasOne(c => c.Teacher)
+                .WithMany(t => t.Courses)
+                .HasForeignKey(c => c.TeacherId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
         public DbSet<Student> Students { get; set; }

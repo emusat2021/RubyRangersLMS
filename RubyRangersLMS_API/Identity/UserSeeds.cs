@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using RubyRangersLMS_API.Models;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RubyRangersLMS_API.Identity
 {
@@ -33,17 +28,24 @@ namespace RubyRangersLMS_API.Identity
                 }
             }
 
-            // Seed a student user
-            var studentEmail = "student@example.com";
-            var studentUser = new Student { UserName = studentEmail, Email = studentEmail, EmailConfirmed = true };
-            if (userManager.Users.All(u => u.Email != studentEmail))
-            {
-                var result = await userManager.CreateAsync(studentUser, "Password123!");
-                if (result.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(studentUser, "Student");
-                }
-            }
+
+
+
+
+            /// Currently commented out because Students can not be created without a Course
+            /// and I am currently working on Identity.
+            
+            //// Seed a student user
+            //var studentEmail = "student@example.com";
+            //var studentUser = new Student { UserName = studentEmail, Email = studentEmail, EmailConfirmed = true };
+            //if (userManager.Users.All(u => u.Email != studentEmail))
+            //{
+            //    var result = await userManager.CreateAsync(studentUser, "Password123!");
+            //    if (result.Succeeded)
+            //    {
+            //        await userManager.AddToRoleAsync(studentUser, "Student");
+            //    }
+            //}
         }
     }
 }
