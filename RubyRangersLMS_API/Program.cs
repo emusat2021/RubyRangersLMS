@@ -24,6 +24,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<IUoW, UoW>();
+builder.Services.AddAutoMapper(typeof(LmsMappings));
 
 var app = builder.Build();
 
@@ -34,7 +35,6 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LexiconLMS API v1"));
     app.UseSwaggerUI();
 }
 
