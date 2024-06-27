@@ -11,7 +11,7 @@ builder.Services.AddRazorComponents()
 // Register HttpClient for API calls
 builder.Services.AddHttpClient<ITeacherServices, TeacherServices>(client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7085/api/"); // Replace with your API base address
+    client.BaseAddress = new Uri("https://localhost:7249/api/"); // Replace with your API base address
 });
 
 builder.Services.AddScoped<ITeacherServices, TeacherServices>();
