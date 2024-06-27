@@ -12,8 +12,8 @@ using RubyRangersLMS_API.Data;
 namespace RubyRangersLMS_API.Migrations
 {
     [DbContext(typeof(LMSContext))]
-    [Migration("20240626112343_RunbyRangerDB")]
-    partial class RunbyRangerDB
+    [Migration("20240627072305_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,8 +37,9 @@ namespace RubyRangersLMS_API.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EntityType")
-                        .HasColumnType("int");
+                    b.Property<string>("EntityType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -150,8 +151,6 @@ namespace RubyRangersLMS_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
-
                     b.ToTable("Students");
                 });
 
@@ -228,7 +227,7 @@ namespace RubyRangersLMS_API.Migrations
                 {
                     b.HasBaseType("RubyRangersLMS_API.Entities.CurriculumEntity");
 
-                    b.Property<Guid?>("TeacherId")
+                    b.Property<Guid>("TeacherId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasIndex("TeacherId");
@@ -259,49 +258,46 @@ namespace RubyRangersLMS_API.Migrations
                     b.Navigation("AttachedToCurriculumEntity");
                 });
 
-            modelBuilder.Entity("RubyRangersLMS_API.Entities.Student", b =>
-                {
-                    b.HasOne("RubyRangersLMS_API.Entities.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-                });
-
             modelBuilder.Entity("RubyRangersLMS_API.Entities.Activity", b =>
                 {
-                    b.HasOne("RubyRangersLMS_API.Entities.Module", "Module")
-                        .WithMany()
+                    b.HasOne("RubyRangersLMS_API.Entities.Module", null)
+                        .WithMany("Activities")
                         .HasForeignKey("ModuleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Module");
                 });
 
             modelBuilder.Entity("RubyRangersLMS_API.Entities.Course", b =>
                 {
                     b.HasOne("RubyRangersLMS_API.Entities.Teacher", null)
                         .WithMany("Courses")
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RubyRangersLMS_API.Entities.Module", b =>
                 {
-                    b.HasOne("RubyRangersLMS_API.Entities.Course", "Course")
-                        .WithMany()
+                    b.HasOne("RubyRangersLMS_API.Entities.Course", null)
+                        .WithMany("Modules")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("RubyRangersLMS_API.Entities.Teacher", b =>
                 {
                     b.Navigation("Courses");
+                });
+
+            modelBuilder.Entity("RubyRangersLMS_API.Entities.Course", b =>
+                {
+                    b.Navigation("Modules");
+                });
+
+            modelBuilder.Entity("RubyRangersLMS_API.Entities.Module", b =>
+                {
+                    b.Navigation("Activities");
                 });
 #pragma warning restore 612, 618
         }

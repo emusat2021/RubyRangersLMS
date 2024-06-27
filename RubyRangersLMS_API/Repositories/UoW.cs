@@ -2,7 +2,7 @@
 using RubyRangersLMS_API.Entities;
 using RubyRangersLMS_API.IRepositories;
 
-namespace RubyRangersLMS_API.Repository
+namespace RubyRangersLMS_API.Repositories
 {
     public class UoW : IUoW
     {

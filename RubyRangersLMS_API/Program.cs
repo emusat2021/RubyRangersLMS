@@ -1,18 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using RubyRangersLMS_API.Data;
 using RubyRangersLMS_API.IRepositories;
-using RubyRangersLMS_API.Repository;
+using RubyRangersLMS_API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContextFactory<LMSContext>(options =>
     options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
+// add.EnableSensitiveDataLogging()); if SQL debugging is needed further.
+
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 
 builder.Services.AddCors(options =>
@@ -28,18 +29,17 @@ builder.Services.AddAutoMapper(typeof(LmsMappings));
 
 var app = builder.Build();
 
-
+// Ensure UseRouting is called before UseEndpoints
+app.UseRouting();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-app.UseRouting();
 
 app.UseAuthorization();
 
@@ -48,5 +48,11 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
+// Run seeding if needed
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<LMSContext>();
+    await SeedInitialData.SeedFirstCourse(dbContext);
+}
 
 app.Run();

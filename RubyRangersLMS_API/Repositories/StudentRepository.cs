@@ -3,7 +3,7 @@ using RubyRangersLMS_API.Data;
 using RubyRangersLMS_API.IRepositories;
 using RubyRangersLMS_API.Entities;
 
-namespace RubyRangersLMS_API.Repository
+namespace RubyRangersLMS_API.Repositories
 {
     public class StudentRepository : IRepository<Student>
     {
@@ -35,7 +35,7 @@ namespace RubyRangersLMS_API.Repository
 
         public async void Remove(Student student)
         {
-            context.Remove<Student>(student);
+            context.Remove(student);
         }
 
         public async Task<bool> AnyAsync(Guid id)

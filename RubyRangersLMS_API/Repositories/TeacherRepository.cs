@@ -4,7 +4,7 @@ using RubyRangersLMS_API.Entities;
 using RubyRangersLMS_API.IRepositories;
 using RubyRangersLMS_API.ViewModels;
 
-namespace RubyRangersLMS_API.Repository
+namespace RubyRangersLMS_API.Repositories
 {
     public class TeacherRepository : ITeacherRepository
     {
