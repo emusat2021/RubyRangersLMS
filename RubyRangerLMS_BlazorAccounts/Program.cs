@@ -28,16 +28,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentityCore<ApplicationUser>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
-    .AddRoles<ApplicationUser>()
+    .AddRoleManager<RoleManager<IdentityRole>>()
     .AddDefaultTokenProviders();
 
 // I added  Microsoft.AspNetCore.Identity.UI
 // This might be unnecessairy since we have AddIdentityCore<>
-//builder.Services.AddDefaultIdentity<IdentityUser>
-
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
 var app = builder.Build();
@@ -78,7 +77,6 @@ using(var scope = app.Services.CreateScope())
         {
             IdentityRole newRole = new IdentityRole(role);
             await roleManager.CreateAsync(newRole);
-             //roleManager.CreateAsync(new IdentityRole(role));
         }
     }
 }
