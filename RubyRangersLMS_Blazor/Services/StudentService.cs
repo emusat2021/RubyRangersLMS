@@ -17,15 +17,10 @@ namespace RubyRangersLMS_Blazor.Services
             var response = await httpClient.GetAsync("api/student");
             return await response.Content.ReadFromJsonAsync<List<Student>>();
         }
-
-        public async Task<Student> GetAsync(int id)
+        
+        public async Task<Student> GetByIdAsync(int id)
         {
-            return null;
-        }
-
-        public async Task<Student> GetStudentByIdAsync(int id)
-        {
-            var response = await httpClient.GetAsync("https://localhost:7085/api/student/id");
+            var response = await httpClient.GetAsync("api/student/id");
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<Student>();
         }
