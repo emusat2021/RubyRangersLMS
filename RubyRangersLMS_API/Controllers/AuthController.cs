@@ -34,7 +34,7 @@ namespace RubyRangersLMS_API.Controllers
                 return Unauthorized("Invalid Email or Password");
             }
 
-            // Beware the last false variable sets lockout to false.
+            // Beware the last false variable is for lockout.
             // May make us vulnerable to brute force attacks.
             var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
