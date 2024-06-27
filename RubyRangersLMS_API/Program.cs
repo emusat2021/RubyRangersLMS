@@ -49,10 +49,10 @@ app.UseEndpoints(endpoints =>
 });
 
 // Run seeding if needed
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<LMSContext>();
-    await SeedInitialData.SeedFirstCourse(dbContext);
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var dbContext = scope.ServiceProvider.GetRequiredService<LMSContext>();
+//    await SeedInitialData.SeedFirstCourse(dbContext);
+//}
 
 app.Run();
