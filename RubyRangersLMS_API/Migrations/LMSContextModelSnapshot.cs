@@ -34,8 +34,9 @@ namespace RubyRangersLMS_API.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EntityType")
-                        .HasColumnType("int");
+                    b.Property<string>("EntityType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -58,6 +59,9 @@ namespace RubyRangersLMS_API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AttachedToCurriculumEntityId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<byte[]>("DocumentByte")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
@@ -77,20 +81,12 @@ namespace RubyRangersLMS_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("OwnerGuid")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("StudentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("TeacherId")
+                    b.Property<Guid>("OwnedByUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("DocumentId");
 
-                    b.HasIndex("StudentId");
-
-                    b.HasIndex("TeacherId");
+                    b.HasIndex("AttachedToCurriculumEntityId");
 
                     b.ToTable("Documents");
                 });
@@ -115,6 +111,10 @@ namespace RubyRangersLMS_API.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -148,8 +148,6 @@ namespace RubyRangersLMS_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
-
                     b.ToTable("Students");
                 });
 
@@ -170,6 +168,10 @@ namespace RubyRangersLMS_API.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -222,7 +224,7 @@ namespace RubyRangersLMS_API.Migrations
                 {
                     b.HasBaseType("RubyRangersLMS_API.Entities.CurriculumEntity");
 
-                    b.Property<Guid?>("TeacherId")
+                    b.Property<Guid>("TeacherId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasIndex("TeacherId");
@@ -244,65 +246,55 @@ namespace RubyRangersLMS_API.Migrations
 
             modelBuilder.Entity("RubyRangersLMS_API.Entities.Document", b =>
                 {
-                    b.HasOne("RubyRangersLMS_API.Entities.Student", null)
-                        .WithMany("OwnedDocuments")
-                        .HasForeignKey("StudentId");
-
-                    b.HasOne("RubyRangersLMS_API.Entities.Teacher", null)
-                        .WithMany("OwnedDocuments")
-                        .HasForeignKey("TeacherId");
-                });
-
-            modelBuilder.Entity("RubyRangersLMS_API.Entities.Student", b =>
-                {
-                    b.HasOne("RubyRangersLMS_API.Entities.Course", "Course")
+                    b.HasOne("RubyRangersLMS_API.Entities.CurriculumEntity", "AttachedToCurriculumEntity")
                         .WithMany()
-                        .HasForeignKey("CourseId")
+                        .HasForeignKey("AttachedToCurriculumEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Course");
+                    b.Navigation("AttachedToCurriculumEntity");
                 });
 
             modelBuilder.Entity("RubyRangersLMS_API.Entities.Activity", b =>
                 {
-                    b.HasOne("RubyRangersLMS_API.Entities.Module", "Module")
-                        .WithMany()
+                    b.HasOne("RubyRangersLMS_API.Entities.Module", null)
+                        .WithMany("Activities")
                         .HasForeignKey("ModuleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Module");
                 });
 
             modelBuilder.Entity("RubyRangersLMS_API.Entities.Course", b =>
                 {
                     b.HasOne("RubyRangersLMS_API.Entities.Teacher", null)
                         .WithMany("Courses")
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RubyRangersLMS_API.Entities.Module", b =>
                 {
-                    b.HasOne("RubyRangersLMS_API.Entities.Course", "Course")
-                        .WithMany()
+                    b.HasOne("RubyRangersLMS_API.Entities.Course", null)
+                        .WithMany("Modules")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Course");
-                });
-
-            modelBuilder.Entity("RubyRangersLMS_API.Entities.Student", b =>
-                {
-                    b.Navigation("OwnedDocuments");
                 });
 
             modelBuilder.Entity("RubyRangersLMS_API.Entities.Teacher", b =>
                 {
                     b.Navigation("Courses");
+                });
 
-                    b.Navigation("OwnedDocuments");
+            modelBuilder.Entity("RubyRangersLMS_API.Entities.Course", b =>
+                {
+                    b.Navigation("Modules");
+                });
+
+            modelBuilder.Entity("RubyRangersLMS_API.Entities.Module", b =>
+                {
+                    b.Navigation("Activities");
                 });
 #pragma warning restore 612, 618
         }

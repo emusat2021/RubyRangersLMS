@@ -3,6 +3,6 @@
     public class Module : CurriculumEntity
     {
         public Guid CourseId { get; set; }
-        public Course Course { get; set; }
+        public List<Activity> Activities { get; internal set; }
     }
 }
