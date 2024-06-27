@@ -12,8 +12,8 @@ using RubyRangersLMS_API.Data;
 namespace RubyRangersLMS_API.Migrations
 {
     [DbContext(typeof(LMSContext))]
-    [Migration("20240626112343_RunbyRangerDB")]
-    partial class RunbyRangerDB
+    [Migration("20240626131528_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
