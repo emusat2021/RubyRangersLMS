@@ -5,6 +5,6 @@ namespace RubyRangersLMS_Blazor.IServices
     {
 
         Task<List<T>> GetAllAsync();
-        Task<T> GetAsync(int id);
+        Task<T> GetByIdAsync(int id);
     }
 }
