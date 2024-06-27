@@ -31,7 +31,12 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
+    .AddRoles<ApplicationUser>()
     .AddDefaultTokenProviders();
+
+// I added  Microsoft.AspNetCore.Identity.UI
+// This might be unnecessairy since we have AddIdentityCore<>
+//builder.Services.AddDefaultIdentity<IdentityUser>
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
@@ -59,5 +64,23 @@ app.MapRazorComponents<App>()
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
+
+using(var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    //var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+    var roles = new[] { "Teacher", "Student" };
+
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            IdentityRole newRole = new IdentityRole(role);
+            await roleManager.CreateAsync(newRole);
+             //roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+}
 
 app.Run();
