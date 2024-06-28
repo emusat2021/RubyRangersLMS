@@ -3,7 +3,7 @@ using RubyRangersLMS_Blazor.Models;
 
 namespace RubyRangersLMS_Blazor.Services
 {
-    public class TeacherServices : ITeacherServices
+    public class TeacherServices : IService<TeacherViewModel>
     {
         private readonly HttpClient _httpClient;
         public TeacherServices(HttpClient httpClient)
@@ -11,21 +11,41 @@ namespace RubyRangersLMS_Blazor.Services
             _httpClient = httpClient;
         }
 
-        public async Task<bool> CreateTeachersAsync(TeacherCreateModel teacherCreateModel)
+        public async Task<List<TeacherViewModel>> GetAllAsync()
         {
-            var response = await _httpClient.PostAsJsonAsync("teachers", teacherCreateModel);
-            return response.IsSuccessStatusCode;
+            return await _httpClient.GetFromJsonAsync<List<TeacherViewModel>>("api/teachers");
         }
 
-        public async Task<bool> DeleteTeachersAsync(Guid id)
+        //public async Task<bool> CreateTeachersAsync(TeacherCreateModel teacherCreateModel)
+        //{
+        //    var response = await _httpClient.PostAsJsonAsync("teachers", teacherCreateModel);
+        //    return response.IsSuccessStatusCode;
+        //}
+
+        //public async Task<bool> DeleteTeachersAsync(Guid id)
+        //{
+        //    var response = await _httpClient.DeleteAsync($"teachers/{id}");
+        //    return response.IsSuccessStatusCode;
+        //}
+
+
+
+
+        public Task<TeacherViewModel> GetByIdAsync(Guid id)
         {
-            var response = await _httpClient.DeleteAsync($"teachers/{id}");
-            return response.IsSuccessStatusCode;
+            throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<TeacherViewModel>> GetTeachersAsync()
+        public Task<TeacherViewModel> UpdateAsync(Guid id, TeacherViewModel entity)
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<TeacherViewModel>>("teachers");
+            throw new NotImplementedException();
+        }
+
+        public void DeleteAsync(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
+
+        
 }

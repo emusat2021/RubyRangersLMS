@@ -1,6 +1,10 @@
-﻿@page "/teacher"
+﻿@page "/viewteacher"
 @rendermode InteractiveServer
-
+@using RubyRangersLMS_Blazor.IServices
+@using RubyRangersLMS_Blazor.Models
+@using RubyRangersLMS_Blazor.Services
+@inject IService<TeacherViewModel> TeacherServices
+@inject NavigationManager NavigationManager
 
 
 
@@ -16,7 +20,7 @@ else
     <ul>
         @foreach (var teacher in teachers)
         {
-            <li>@teacher.FullName (@teacher.UserName)</li>
+            <li>@teacher.FullName</li>
         }
     </ul>
 }
@@ -25,11 +29,9 @@ else
 
 
 @code {
-    private IEnumerable<TeacherViewModel> teachers;
-    <!--
+    private List<TeacherViewModel> teachers = new List<TeacherViewModel>();
     protected override async Task OnInitializedAsync()
     {
-        teachers = await TeacherServices.GetTeachersAsync();
+        teachers = await TeacherServices.GetAllAsync();
     }
-    -->
 }
