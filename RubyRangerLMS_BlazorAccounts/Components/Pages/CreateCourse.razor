@@ -51,7 +51,7 @@
 </div>
 @code {
     [SupplyParameterFromForm]
-    private InputCourse NewCourse { get; set; } = new InputCourse
+    private CourseVM NewCourse { get; set; } = new CourseVM
         {
             // So you don't have to go from like 1970 to now...
             StartDate = DateTime.Today,
@@ -87,7 +87,7 @@
         return;
     }
 
-    public class InputCourse
+    public class CourseVM
     {
         [Required]
         public Guid TeacherId { get; set; }
@@ -106,9 +106,5 @@
         public DateTime StartDate { get; set; }
         [Required]
         public DateTime EndDate { get; set; }
-
-        //public List<RubyRangerLMS_BlazorAccounts.Models.Module>? Modules { get; internal set; }
-        // ToDo
-        //public List<Document>? Documents { get; internal set; }
     }
 }
