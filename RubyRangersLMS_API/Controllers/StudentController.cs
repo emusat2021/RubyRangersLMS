@@ -47,7 +47,7 @@ namespace RubyRangersLMS_API.Controllers
         }
 
         // POST api/student
-        [HttpPost]
+        [HttpPost("add")]
         public async Task<ActionResult> PostStudent(StudentDto studentDto)
         {
             var student = mapper.Map<Student>(studentDto);
@@ -66,7 +66,7 @@ namespace RubyRangersLMS_API.Controllers
         }
 
         // PUT api/student/5
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> PutStudent(Guid id, StudentDto studentDto)
         {
             var student = mapper.Map<Student>(studentDto);
@@ -86,7 +86,7 @@ namespace RubyRangersLMS_API.Controllers
         }
 
         // DELETE api/student/5
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteStudent(Guid id)
         {
             var student = await uow.studentRepository.GetById(id);

@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using RubyRangerLMS_BlazorAccounts.Components;
 using RubyRangerLMS_BlazorAccounts.Components.Account;
 using RubyRangerLMS_BlazorAccounts.Data;
+using RubyRangerLMS_BlazorAccounts.Models;
+using RubyRangerLMS_BlazorAccounts.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,9 +37,16 @@ builder.Services.AddIdentityCore<ApplicationUser>()
     .AddRoleManager<RoleManager<IdentityRole>>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddScoped(option =>
+new HttpClient
+{
+    BaseAddress = new Uri(builder.Configuration["https://localhost:7085"] ?? "http://localhost:5033")
+});
+
 // I added  Microsoft.AspNetCore.Identity.UI
 // This might be unnecessairy since we have AddIdentityCore<>
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+builder.Services.AddScoped<IService<Student>, StudentService>();
 
 var app = builder.Build();
 
