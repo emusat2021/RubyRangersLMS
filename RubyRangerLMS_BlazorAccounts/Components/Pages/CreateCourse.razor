@@ -61,6 +61,7 @@
     // Used to later redirect to list of Courses.
     private string? ReturnUrl { get; set; }
 
+    // Gets current users id which is needed to bind Course to Teacher.
     protected override async Task OnInitializedAsync()
     {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
@@ -71,11 +72,12 @@
             var currentUser = await UserManager.GetUserAsync(user);
             if (currentUser != null)
             {
-                course.TeacherId = Guid.Parse(currentUser.Id);
+                NewCourse.TeacherId = Guid.Parse(currentUser.Id);
             }
         }
     }
 
+    // TODO: Implement api call to Course endpoint to create a course.
     public void RegisterCourse(EditContext editContext)
     {
         
