@@ -20,7 +20,7 @@ namespace RubyRangersLMS_API.Repositories
 
         public async Task<Student> GetById(Guid id)
         {
-            return await context.Students.FindAsync(id);
+            return await context.Students.FindAsync(id) ?? new Student();
         }
 
         public void Create(Student student)
@@ -28,12 +28,12 @@ namespace RubyRangersLMS_API.Repositories
             context.Students.Add(student);
         }
 
-        public async void Update(Student student)
+        public void Update(Student student)
         {
             context.Entry(student).State = EntityState.Modified;
         }
 
-        public async void Remove(Student student)
+        public void Remove(Student student)
         {
             context.Remove(student);
         }
