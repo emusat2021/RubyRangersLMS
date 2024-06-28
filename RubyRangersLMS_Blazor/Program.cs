@@ -17,6 +17,8 @@ builder.Services.AddHttpClient("DefaultClient"); // You can specify a name for y
 
 // Add services to the container.
 builder.Services.AddScoped<IService<Student>, StudentService>();
+builder.Services.AddScoped<IService<TeacherViewModel>, TeacherServices>();
+
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
