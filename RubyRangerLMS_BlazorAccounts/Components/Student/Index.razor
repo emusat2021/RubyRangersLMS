@@ -1,0 +1,62 @@
+﻿@page "/student"
+@using RubyRangerLMS_BlazorAccounts.Models
+@using RubyRangerLMS_BlazorAccounts.Services
+@inject IService<Student> StudentService
+@inject NavigationManager NavigationManager
+
+<h3>Students</h3>
+
+@if (students == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in students)
+            {
+                <tr>
+                    <td>@student.FullName</td>
+                    <td>@student.Email</td>
+                    <td>@student.PhoneNumber</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="()=> NavigateToDetail(student.Id)">View</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="()=> DeleteStudent(student.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Student> students = new List<Student>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        students = await StudentService.GetAllAsync();
+    }
+
+    protected void NavigateToDetail(Guid StudentId)
+    {
+        var id = StudentId.ToString();
+        var url = $"details/{id}";
+        NavigationManager.NavigateTo(url);
+    }
+
+    protected void DeleteStudent(Guid StudentId)
+    {
+        StudentService.DeleteAsync(StudentId);
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }
+}
