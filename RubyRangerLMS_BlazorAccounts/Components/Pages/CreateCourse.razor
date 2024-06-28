@@ -1,0 +1,112 @@
+﻿@page "/createcourse"
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Identity
+@using RubyRangerLMS_BlazorAccounts.Data
+
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+
+@rendermode InteractiveServer
+
+@inject UserManager<ApplicationUser> UserManager
+@inject IUserStore<ApplicationUser> UserStore
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h1>Create Course</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <EditForm Model="NewCourse" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterCourse" FormName="courseRegister">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group">
+                <label for="name">Course Name</label>
+                <InputText id="name" class="form-control" @bind-Value="NewCourse.Name" placeholder="Course Name" />
+                <ValidationMessage For="@(() => NewCourse.Name)" />
+            </div>
+
+            <div class="form-group">
+                <label for="description">Course Description</label>
+                <InputTextArea id="description" class="form-control" @bind-Value="NewCourse.Description" placeholder="Course Description" />
+                <ValidationMessage For="@(() => NewCourse.Description)" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="startdate">Start Date</label>
+                <InputDate id="startdate" class="form-control" @bind-Value="NewCourse.StartDate" />
+                <ValidationMessage For="@(() => NewCourse.StartDate)" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="enddate">End Date</label>
+                <InputDate id="enddate" class="form-control" @bind-Value="NewCourse.EndDate" />
+                <ValidationMessage For="@(() => NewCourse.EndDate)" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create Course</button>
+        </EditForm>
+
+    </div>
+</div>
+@code {
+    [SupplyParameterFromForm]
+    private InputCourse NewCourse { get; set; } = new InputCourse
+        {
+            // So you don't have to go from like 1970 to now...
+            StartDate = DateTime.Today,
+            EndDate = DateTime.Today
+        };
+
+    // Used to later redirect to list of Courses.
+    private string? ReturnUrl { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            var currentUser = await UserManager.GetUserAsync(user);
+            if (currentUser != null)
+            {
+                course.TeacherId = Guid.Parse(currentUser.Id);
+            }
+        }
+    }
+
+    public void RegisterCourse(EditContext editContext)
+    {
+        
+
+        //NewCourse.TeacherId = UserManager.
+        // Call api with Course data, Then return User to Course List View.
+        return;
+    }
+
+    public class InputCourse
+    {
+        [Required]
+        public Guid TeacherId { get; set; }
+
+        [Required]
+        [Display(Name = "Course Name")]
+        [DataType(DataType.Text)]
+        [StringLength(32, ErrorMessage = "Course Name needs to be between 2 - 32 Characters.", MinimumLength = 2)]
+        public string Name { get; set; }
+
+        [Display(Name = "Course Description")]
+        [DataType(DataType.MultilineText)]
+        public string? Description { get; set; }
+
+        [Required]
+        public DateTime StartDate { get; set; }
+        [Required]
+        public DateTime EndDate { get; set; }
+
+        //public List<RubyRangerLMS_BlazorAccounts.Models.Module>? Modules { get; internal set; }
+        // ToDo
+        //public List<Document>? Documents { get; internal set; }
+    }
+}
