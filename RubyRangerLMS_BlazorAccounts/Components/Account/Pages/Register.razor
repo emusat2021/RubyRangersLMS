@@ -42,8 +42,13 @@
                 <label for="confirm-password">Confirm Password</label>
                 <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
             </div>
+            <div>
+                <InputCheckbox @bind-Value="Input.isTeacher" class="darker-border-checkbox form-check-input" />
+                Are you a Teacher?
+            </div>
             <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </EditForm>
+
     </div>
     <div class="col-md-6 col-md-offset-2">
         <section>
@@ -68,11 +73,14 @@
     public async Task RegisterUser(EditContext editContext)
     {
         var user = CreateUser();
-
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
         await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
         var result = await UserManager.CreateAsync(user, Input.Password);
+
+        // Victor here! You can use this line of code to set a user role to either "Teacher" or "Student"!
+        string role = Input.isTeacher ? "Teacher" : "Student";
+        var roleResult = await UserManager.AddToRoleAsync(user, role);
 
         if (!result.Succeeded)
         {
@@ -141,5 +149,8 @@
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; } = "";
+
+        [Display(Name = "isTeacher")]
+        public bool isTeacher { get; set; }
     }
 }
