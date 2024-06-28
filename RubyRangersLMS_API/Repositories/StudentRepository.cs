@@ -7,40 +7,40 @@ namespace RubyRangersLMS_API.Repositories
 {
     public class StudentRepository : IRepository<Student>
     {
-        private readonly LMSContext context;
+        private readonly LMSContext _context;
 
-        public StudentRepository(LMSContext context)
+        public StudentRepository(IDbContextFactory<LMSContext> dBFactory)
         {
-            this.context = context;
+            _context = dBFactory.CreateDbContext();
         }
-        public async Task<IEnumerable<Student>> GetAll()
+        public async Task<IEnumerable<Student>> GetAllAsync()
         {
-            return await context.Students.ToListAsync();
+            return await _context.Students.ToListAsync();
         }
 
-        public async Task<Student> GetById(Guid id)
+        public async Task<Student> GetAsync(Guid id)
         {
-            return await context.Students.FindAsync(id);
+            return await _context.Students.FindAsync(id);
         }
 
         public void Create(Student student)
         {
-            context.Students.Add(student);
+            _context.Students.Add(student);
         }
 
         public async void Update(Student student)
         {
-            context.Entry(student).State = EntityState.Modified;
+            _context.Entry(student).State = EntityState.Modified;
         }
 
         public async void Remove(Student student)
         {
-            context.Remove(student);
+            _context.Remove(student);
         }
 
         public async Task<bool> AnyAsync(Guid id)
         {
-            return await context.Students.AnyAsync(s => s.Id == id);
+            return await _context.Students.AnyAsync(s => s.Id == id);
         }
     }
 }

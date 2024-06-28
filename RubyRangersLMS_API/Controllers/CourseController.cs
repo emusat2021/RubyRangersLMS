@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using RubyRangersLMS_API.Entities;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using RubyRangersLMS_API.Dtos.CourseDtos;
 using RubyRangersLMS_API.IRepositories;
 
 namespace RubyRangersLMS_API.Controllers
@@ -8,36 +9,35 @@ namespace RubyRangersLMS_API.Controllers
     [ApiController]
     public class CourseController : ControllerBase
     {
-        private readonly ICourseRepository _courseRepository;
+        private readonly IUoW _uow;
+        private readonly IMapper _mapper;
 
-        public CourseController(ICourseRepository courseRepository)
+        public CourseController(IUoW uow, IMapper mapper)
         {
-            _courseRepository = courseRepository;
+            _mapper = mapper;
+            _uow = uow;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetAllCourses()
+        public async Task<ActionResult<IEnumerable<CourseDtoGet>>> GetAllCourses()
         {
-            var courses = await _courseRepository.GetAllCourses();
+            var courses = await _uow.CourseRepository.GetAllAsync();
 
-            if (!courses.Any())
+            if (courses == null || !courses.Any())
             {
-                return NotFound("No courses found");
+                return BadRequest();
             }
-            return Ok(courses);
+
+            return Ok(_mapper.Map<IEnumerable<CourseDtoGet>>(courses));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> GetCourse(Guid id)
+        public async Task<ActionResult<CourseDtoGet>> GetCourse(Guid id)
         {
-            var course = await _courseRepository.GetCourse(id);
+            var course = await _uow.CourseRepository.GetAsync(id);
 
-            if (course == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(course);
+            // Implement all validation logic
+            return Ok(_mapper.Map<CourseDtoGet>(course));
         }
     }
 }

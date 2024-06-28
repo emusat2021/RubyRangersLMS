@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection.Metadata;
 
-namespace RubyRangersLMS_API.Entities
+namespace RubyRangersLMS_API.IRepositories
 {
-    public abstract class CurriculumEntity
+    // Not used at the moment
+    public interface ICourseDto
     {
         [Required]
         public Guid Id { get; set; }
@@ -23,11 +25,9 @@ namespace RubyRangersLMS_API.Entities
         [Display(Name = "Ending date")]
         public DateTime EndDate { get; set; }
         [Required]
-        public string? EntityType { get; set; }
+        public string EntityType { get; set; }
 
         [NotMapped]
         public ICollection<Document> OwnedDocuments { get; set; }
     }
 }
-
-

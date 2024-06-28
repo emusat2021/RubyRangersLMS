@@ -1,7 +1,8 @@
 ﻿namespace RubyRangersLMS_API.Dtos
 {
     public class StudentDto
-    {        public Guid Id { get; set; }
+    {   
+        public Guid Id { get; set; }
         public string FullName { get; set; }
         public Guid CourseId { get; set; }
         public string Email { get; set; }

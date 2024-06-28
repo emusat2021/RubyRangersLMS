@@ -24,7 +24,7 @@ namespace RubyRangersLMS_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StudentDto>>> GetAllStudents()
         {
-            var students = await uow.studentRepository.GetAll();
+            var students = await uow.StudentRepository.GetAllAsync();
 
             if (students == null)
                 return NotFound();
@@ -37,7 +37,7 @@ namespace RubyRangersLMS_API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<StudentDto>> GetStudent(Guid id)
         {
-            var student = await uow.studentRepository.GetById(id);
+            var student = await uow.StudentRepository.GetAsync(id);
 
             if (student == null)
                 return NotFound();
@@ -51,11 +51,11 @@ namespace RubyRangersLMS_API.Controllers
         public async Task<ActionResult> PostStudent(StudentDto studentDto)
         {
             var student = mapper.Map<Student>(studentDto);
-            uow.studentRepository.Create(student);
+            uow.StudentRepository.Create(student);
 
             try
             {
-                await uow.CompleteAsync();
+                await uow.SaveAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -71,11 +71,11 @@ namespace RubyRangersLMS_API.Controllers
         {
             var student = mapper.Map<Student>(studentDto);
 
-            uow.studentRepository.Update(student);
+            uow.StudentRepository.Update(student);
 
             try
             {
-                await uow.CompleteAsync();
+                await uow.SaveAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -89,16 +89,16 @@ namespace RubyRangersLMS_API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(Guid id)
         {
-            var student = await uow.studentRepository.GetById(id);
+            var student = await uow.StudentRepository.GetAsync(id);
 
             if (student == null)
                 return NotFound();
 
-            uow.studentRepository.Remove(student);
+            uow.StudentRepository.Remove(student);
 
             try
             {
-                await uow.CompleteAsync();
+                await uow.SaveAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -111,7 +111,7 @@ namespace RubyRangersLMS_API.Controllers
 
         private bool GameExists(Guid id)
         {
-            return uow.studentRepository.AnyAsync(id).Result;
+            return uow.StudentRepository.AnyAsync(id).Result;
         }
     }
 }
