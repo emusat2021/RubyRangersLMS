@@ -5,14 +5,11 @@ using RubyRangersLMS_Blazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
 
-// Register HttpClient for API calls
-builder.Services.AddHttpClient<ITeacherServices, TeacherServices>(client =>
+builder.Services.AddScoped(option =>
+new HttpClient
 {
-    client.BaseAddress = new Uri("https://localhost:7249/api/"); // Replace with your API base address
+    BaseAddress = new Uri(builder.Configuration["https://localhost:7085"] ?? "http://localhost:5033")
 });
 
 builder.Services.AddHttpClient("DefaultClient"); // You can specify a name for your client
