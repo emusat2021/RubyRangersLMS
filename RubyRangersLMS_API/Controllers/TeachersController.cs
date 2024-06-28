@@ -12,18 +12,18 @@ namespace RubyRangersLMS_API.Controllers
     [Route("api/teachers")]
     public class TeachersController : ControllerBase
     {
-        private readonly ITeacherRepository _teacherRepositoty;
+        private readonly ITeacherRepository _teacherRepository;
 
-        public TeachersController(ITeacherRepository teacherRepositoty)
+        public TeachersController(ITeacherRepository teacherRepository)
         {
-            _teacherRepositoty = teacherRepositoty;
+            _teacherRepository = teacherRepository;
         }
 
         //api/Teacher
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TeacherViewModel>>> GetTeachers()
         {
-            var response = await _teacherRepositoty.GetAll();
+            var response = await _teacherRepository.GetAll();
             return Ok(response);
         }
 
@@ -31,14 +31,14 @@ namespace RubyRangersLMS_API.Controllers
         public async Task<ActionResult<TeacherCreateModel>> CreateTeacher(TeacherCreateModel teacherCreateModel)
         {
             
-            var response = await _teacherRepositoty.Add(teacherCreateModel);
+            var response = await _teacherRepository.Add(teacherCreateModel);
             return Ok(response);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<TeacherDeleteModel>> DeleteTeacher(Guid id)
         {
-            var success = await _teacherRepositoty.Delete(id);
+            var success = await _teacherRepository.Delete(id);
             if (!success)
             {
                 return NotFound($"Teacher not found with id {id}");
