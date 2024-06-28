@@ -1,4 +1,6 @@
 using RubyRangersLMS_Blazor.Components;
+using RubyRangersLMS_Blazor.IServices;
+using RubyRangersLMS_Blazor.Models;
 using RubyRangersLMS_Blazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +16,7 @@ builder.Services.AddHttpClient("DefaultClient"); // You can specify a name for y
 
 
 // Add services to the container.
-builder.Services.AddScoped<StudentService>();
+builder.Services.AddScoped<IService<Student>, StudentService>();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
