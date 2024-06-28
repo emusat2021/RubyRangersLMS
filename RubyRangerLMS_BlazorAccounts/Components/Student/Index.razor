@@ -1,0 +1,74 @@
+﻿@page "/"
+@using RubyRangerLMS_BlazorAccounts.Models
+@using RubyRangerLMS_BlazorAccounts.Services
+@inject IService<Student> StudentService
+@inject NavigationManager NavigationManager
+
+<h3>Students</h3>
+
+@if (students == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Course ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Email Confirmed?</th>
+                <th>Phone Number</th>
+                <th>Phone Number Confirmed?</th>
+                <th>Two-Factor Enabled?</th>
+                <th>Lockout Enabled?</th>
+                <th>Access Failed Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in students)
+            {
+                <tr>
+                    <td>@student.CourseId</td>
+                    <td>@student.FullName</td>
+                    <td>@student.Email</td>
+                    <td>@student.EmailConfirmed</td>
+                    <td>@student.PhoneNumber</td>
+                    <td>@student.PhoneNumberConfirmed</td>
+                    <td>@student.TwoFactorEnabled</td>
+                    <td>@student.LockoutEnabled</td>
+                    <td>@student.AccessFailedCount</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="()=> NavigateToDetail(student.Id)">View</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="()=> DeleteStudent(student.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Student> students = new List<Student>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        students = await StudentService.GetAllAsync();
+    }
+
+    protected void NavigateToDetail(Guid StudentId)
+    {
+        var id = StudentId.ToString();
+        var url = $"details/{id}";
+        NavigationManager.NavigateTo(url);
+    }
+
+    protected void DeleteStudent(Guid StudentId)
+    {
+        StudentService.DeleteAsync(StudentId);
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }
+}
