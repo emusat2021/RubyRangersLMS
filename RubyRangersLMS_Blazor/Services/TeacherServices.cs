@@ -13,7 +13,7 @@ namespace RubyRangersLMS_Blazor.Services
 
         public async Task<List<TeacherViewModel>> GetAllAsync()
         {
-            return await _httpClient.GetFromJsonAsync<List<TeacherViewModel>>("api/teachers");
+            return await _httpClient.GetFromJsonAsync<List<TeacherViewModel>>("api/teachers") ?? new List<TeacherViewModel>();
         }
 
         //public async Task<bool> CreateTeachersAsync(TeacherCreateModel teacherCreateModel)
