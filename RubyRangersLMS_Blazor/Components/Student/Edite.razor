@@ -1,0 +1,19 @@
+﻿@page "/edite/{StudentId}"
+@using RubyRangersLMS_Blazor.IServices
+@using RubyRangersLMS_Blazor.Models
+@using RubyRangersLMS_Blazor.Services
+@inject IService<Student> StudentService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Student</PageTitle>
+
+<h1>Edite Student</h1>
+
+@* @code {
+    [Parameter] public Student studentObject { get; set; }
+    private Student student = new Student();
+    protected override async Task OnParametersSetAsync()
+    {
+        student = await StudentService.UpdateAsync(studentObject);
+    }
+} *@

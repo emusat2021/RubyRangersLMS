@@ -1,0 +1,73 @@
+﻿@page "/details/{StudentId}"
+@using RubyRangersLMS_Blazor.IServices
+@using RubyRangersLMS_Blazor.Models
+@using RubyRangersLMS_Blazor.Services
+@inject IService<Student> StudentService
+@inject NavigationManager NavigationManager
+
+<h3>Student Detail</h3>
+
+@if (student == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <dl>
+        <div class="label-value">
+            <span class="label">Course ID:</span>
+            <span>@student.CourseId</span>
+        </div>
+        <div class="label-value">
+            <span class="label">Name:</span>
+            <span>@student.FullName</span>
+        </div>
+        <div class="label-value">
+            <span class="label">Email:</span>
+            <span>@student.Email</span>
+        </div>
+        <div class="label-value">
+            <span class="label">Email Confirmed:</span>
+            <span>@(student.EmailConfirmed ? "Yes" : "No")</span>
+        </div>
+        <div class="label-value">
+            <span class="label">Phone Number:</span>
+            <span>@student.PhoneNumber</span>
+        </div>
+        <div class="label-value">
+            <span class="label">Phone Number Confirmed:</span>
+            <span>@(student.PhoneNumberConfirmed ? "Yes" : "No")</span>
+        </div>
+        <div class="label-value">
+            <span class="label">Two-Factor Enabled:</span>
+            <span>@(student.TwoFactorEnabled ? "Yes" : "No")</span>
+        </div>
+        <div class="label-value">
+            <span class="label">Lockout Enabled:</span>
+            <span>@(student.LockoutEnabled ? "Yes" : "No")</span>
+        </div>
+        <div class="label-value">
+            <span class="label">Access Failed Count:</span>
+            <span>@student.AccessFailedCount</span>
+        </div>
+        <div class="label-value">
+            <button class="btn btn-primary" @onclick="()=> NavigateToEdite(student.Id)">Edite</button>
+        </div>
+    </dl>
+}
+@code {
+    [Parameter] public string StudentId { get; set; }
+    private Student student;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        student = await StudentService.GetByIdAsync(Guid.Parse(StudentId));
+    }
+
+    void NavigateToEdite(Guid studentId)
+    {
+        var id = StudentId.ToString();
+        var url = $"edite/{id}";
+        NavigationManager.NavigateTo(url);
+    }
+}
