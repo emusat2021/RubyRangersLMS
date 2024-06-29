@@ -1,4 +1,5 @@
-﻿using RubyRangersLMS_API.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using RubyRangersLMS_API.Data;
 using RubyRangersLMS_API.Entities;
 using RubyRangersLMS_API.IRepositories;
 
@@ -6,17 +7,21 @@ namespace RubyRangersLMS_API.Repositories
 {
     public class UoW : IUoW
     {
-        private LMSContext dbContext;
-        public UoW(LMSContext dbContext)
-        {
-            this.dbContext = dbContext;
-            studentRepository = new StudentRepository(dbContext);
-        }
-        public IRepository<Student> studentRepository { get; set; }
+        private readonly LMSContext _context;
 
-        public async Task CompleteAsync()
+        public IRepository<Student> StudentRepository { get; private set; }
+        public IRepository<Course> CourseRepository { get; private set; }
+
+        public UoW(LMSContext context)
         {
-            await dbContext.SaveChangesAsync();
+            _context = context;
+            StudentRepository = new StudentRepository(_context);
+            CourseRepository = new CourseRepository(_context);
+        }
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

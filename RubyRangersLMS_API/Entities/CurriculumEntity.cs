@@ -19,7 +19,7 @@ namespace RubyRangersLMS_API.Entities
 
         [DataType(DataType.Date)]
         [Display(Name = "Ending date")]
-        public DateTime? EndDate { get; set; }
+        public DateTime EndDate { get; set; }
         public string EntityType { get; set; }
 
         [NotMapped]
