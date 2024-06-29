@@ -9,13 +9,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddDbContextFactory<LMSContext>(options =>
-//    options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
+builder.Services.AddDbContextFactory<LMSContext>(options =>
+    options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
 
 // If SQL debugging is needed use this instead:
-builder.Services.AddDbContextFactory<LMSContext>(options =>
-    options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"])
-          .EnableSensitiveDataLogging());
+//builder.Services.AddDbContextFactory<LMSContext>(options =>
+//    options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"])
+//          .EnableSensitiveDataLogging());
 
 builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 

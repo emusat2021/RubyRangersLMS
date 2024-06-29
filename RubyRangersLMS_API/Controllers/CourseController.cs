@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RubyRangersLMS_API.Dtos.CourseDtos;
+using RubyRangersLMS_API.Entities;
 using RubyRangersLMS_API.IRepositories;
+using RubyRangersLMS_API.Repositories;
 
 namespace RubyRangersLMS_API.Controllers
 {
@@ -36,8 +39,46 @@ namespace RubyRangersLMS_API.Controllers
         {
             var course = await _uow.CourseRepository.GetById(id);
 
-            // Implement all validation logic
+            // All validation logic is left
             return Ok(_mapper.Map<CourseDtoGet>(course));
+        }
+        [HttpPost]
+        public async Task<IActionResult> PostCourse([FromBody] CourseDtoPost courseDtoPost)
+        {
+            var courseEntity = _mapper.Map<Course>(courseDtoPost);
+
+            var modulesEntities = courseDtoPost.Modules.Select(moduleDtoPost =>
+                _mapper.Map<Module>(moduleDtoPost)).ToList();
+            var activitiesEntities = courseDtoPost.Modules.SelectMany(moduleDtoPost =>
+                moduleDtoPost.Activities).Select(activityDtoPost =>
+                _mapper.Map<Activity>(activityDtoPost)).ToList();
+
+            foreach (var module in modulesEntities)
+            {
+                // Dates should be cloned from Course
+            }
+
+            foreach (var activity in activitiesEntities)
+            {
+                // Same here
+            }
+
+            _uow.CourseRepository.Create(courseEntity);
+
+            // Complete the validation and dont forget doing the other APi's
+            try
+            {
+                await _uow.SaveAsync();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+            return Ok(new { message = "Course created successfully." });
         }
     }
 }
+
+
+

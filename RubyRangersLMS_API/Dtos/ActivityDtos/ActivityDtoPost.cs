@@ -6,6 +6,6 @@ namespace RubyRangersLMS_API.Dtos.ActivityDtos
     public class ActivityDtoPost : CurriculumEntity
     {
         [Required]
-        public int ModuleId { get; set; }
+        public Guid ModuleId { get; set; }
     }
 }

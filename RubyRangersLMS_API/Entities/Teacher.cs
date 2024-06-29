@@ -6,9 +6,10 @@ namespace RubyRangersLMS_API.Entities
     public class Teacher : IdentityUser
     {
         public Guid Id { get; set; }
-        public ICollection<Course> Courses { get; set; }
-        [NotMapped]
-        public ICollection<Document> OwnedDocuments { get; set; }
         public string FullName { get; set; }
+        public ICollection<Course> Courses { get; set; }
+        //[NotMapped]
+        //public ICollection<Document> OwnedDocuments { get; set; }
+        //public string FullName { get; set; }
     }
 }

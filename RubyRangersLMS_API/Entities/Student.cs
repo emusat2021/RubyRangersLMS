@@ -8,7 +8,7 @@ namespace RubyRangersLMS_API.Entities
         public Guid Id { get; set; }
         public string FullName { get; set; }
         public Guid CourseId { get; set; }
-        [NotMapped]
-        public ICollection<Document> OwnedDocuments { get; set; }
+        //[NotMapped]
+        //public ICollection<Document> OwnedDocuments { get; set; }
     }
 }

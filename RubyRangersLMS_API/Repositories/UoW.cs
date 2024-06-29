@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RubyRangersLMS_API.Data;
+﻿using RubyRangersLMS_API.Data;
 using RubyRangersLMS_API.Entities;
 using RubyRangersLMS_API.IRepositories;
 

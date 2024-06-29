@@ -11,7 +11,5 @@ namespace RubyRangersLMS_API.Dtos.CourseDtos
         public Guid TeacherId { get; set; }
         [Required]
         public ICollection<ModuleDtoPost> Modules { get; set; } = new List<ModuleDtoPost>();
-        [Required]
-        public ICollection<ActivityDtoPost> Activities { get; set; } = new List<ActivityDtoPost>();
     }
 }
