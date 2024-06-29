@@ -1,5 +1,6 @@
 ﻿namespace RubyRangerLMS_BlazorAccounts.Services
 {
+    public interface IService <T>
     public interface IService<T>
     {
         Task<List<T>> GetAllAsync();
