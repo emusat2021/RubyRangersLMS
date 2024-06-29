@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RubyRangersLMS_API", "RubyR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RubyRangersLMS_Blazor", "RubyRangersLMS_Blazor\RubyRangersLMS_Blazor.csproj", "{CE1670B7-BEC4-424C-919F-83B0B256CEBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RubyRangerLMS_BlazorAccounts", "RubyRangerLMS_BlazorAccounts\RubyRangerLMS_BlazorAccounts.csproj", "{3BC9C60C-0B36-45CA-A6DF-63CC719B4F2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RubyRangerLMS_BlazorAccounts", "RubyRangerLMS_BlazorAccounts\RubyRangerLMS_BlazorAccounts.csproj", "{3BC9C60C-0B36-45CA-A6DF-63CC719B4F2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
