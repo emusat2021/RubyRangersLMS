@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RubyRangersLMS_API.Dtos.CourseDtos;
-using RubyRangersLMS_API.Dtos.ModuleDtos;
 using RubyRangersLMS_API.Entities;
 using RubyRangersLMS_API.IRepositories;
 using RubyRangersLMS_API.Repositories;
@@ -47,9 +46,8 @@ namespace RubyRangersLMS_API.Controllers
             return Ok(_mapper.Map<CourseDtoGet>(course));
         }
         [HttpPost]
-        public async Task<IActionResult> PostCourse(CourseDtoPost courseDtoPost)
+        public async Task<IActionResult> PostCourse([FromBody] CourseDtoPost courseDtoPost)
         {
-            //ModuleDtoPost modules = new ModuleDtoPost();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

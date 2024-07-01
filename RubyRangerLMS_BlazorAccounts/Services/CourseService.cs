@@ -10,6 +10,7 @@ namespace RubyRangerLMS_BlazorAccounts.Services
         public CourseService(HttpClient httpClient)
         {
             this.httpClient = httpClient;
+            httpClient.BaseAddress = new Uri("https://localhost:53192/");
         }
 
         public async Task<bool> CreateCourseAsync(CreateCourseVM model)
