@@ -2,7 +2,9 @@
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Identity
 @using RubyRangerLMS_BlazorAccounts.Data
+@using RubyRangerLMS_BlazorAccounts.Services;
 
+@inject CourseService CourseManager
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
 
@@ -16,32 +18,32 @@
 
 <div class="row">
     <div class="col-md-4">
-        <EditForm Model="NewCourse" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterCourse" FormName="courseRegister">
+        <EditForm Model="newCourse" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterCourse" FormName="courseRegister">
             <DataAnnotationsValidator />
             <ValidationSummary />
 
             <div class="form-group">
                 <label for="name">Course Name</label>
-                <InputText id="name" class="form-control" @bind-Value="NewCourse.Name" placeholder="Course Name" />
-                <ValidationMessage For="@(() => NewCourse.Name)" />
+                <InputText id="name" class="form-control" @bind-Value="newCourse.Name" placeholder="Course Name" />
+                <ValidationMessage For="@(() => newCourse.Name)" />
             </div>
 
             <div class="form-group">
                 <label for="description">Course Description</label>
-                <InputTextArea id="description" class="form-control" @bind-Value="NewCourse.Description" placeholder="Course Description" />
-                <ValidationMessage For="@(() => NewCourse.Description)" />
+                <InputTextArea id="description" class="form-control" @bind-Value="newCourse.Description" placeholder="Course Description" />
+                <ValidationMessage For="@(() => newCourse.Description)" />
             </div>
 
             <div class="col-md-6">
                 <label for="startdate">Start Date</label>
-                <InputDate id="startdate" class="form-control" @bind-Value="NewCourse.StartDate" />
-                <ValidationMessage For="@(() => NewCourse.StartDate)" />
+                <InputDate id="startdate" class="form-control" @bind-Value="newCourse.StartDate" />
+                <ValidationMessage For="@(() => newCourse.StartDate)" />
             </div>
 
             <div class="col-md-6">
                 <label for="enddate">End Date</label>
-                <InputDate id="enddate" class="form-control" @bind-Value="NewCourse.EndDate" />
-                <ValidationMessage For="@(() => NewCourse.EndDate)" />
+                <InputDate id="enddate" class="form-control" @bind-Value="newCourse.EndDate" />
+                <ValidationMessage For="@(() => newCourse.EndDate)" />
             </div>
 
             <button type="submit" class="btn btn-primary">Create Course</button>
@@ -51,7 +53,7 @@
 </div>
 @code {
     [SupplyParameterFromForm]
-    private CourseVM NewCourse { get; set; } = new CourseVM
+    private Models.CreateCourseVM newCourse { get; set; } = new Models.CreateCourseVM
         {
             // So you don't have to go from like 1970 to now...
             StartDate = DateTime.Today,
@@ -72,19 +74,15 @@
             var currentUser = await UserManager.GetUserAsync(user);
             if (currentUser != null)
             {
-                NewCourse.TeacherId = Guid.Parse(currentUser.Id);
+                newCourse.TeacherId = Guid.Parse(currentUser.Id);
             }
         }
     }
 
     // TODO: Implement api call to Course endpoint to create a course.
-    public void RegisterCourse(EditContext editContext)
+    public async Task<bool> RegisterCourse(EditContext editContext)
     {
-        
-
-        //NewCourse.TeacherId = UserManager.
-        // Call api with Course data, Then return User to Course List View.
-        return;
+        return await CourseManager.CreateCourseAsync(newCourse);
     }
 
     public class CourseVM
