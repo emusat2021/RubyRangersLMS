@@ -17,7 +17,7 @@
 
     private string? DisplayMessage => Message ?? messageFromCookie;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         messageFromCookie = HttpContext.Request.Cookies[IdentityRedirectManager.StatusCookieName];
 

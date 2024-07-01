@@ -1,0 +1,59 @@
+﻿@page "/addTeacher"
+@rendermode InteractiveServer
+@using RubyRangerLMS_BlazorAccounts.Components.Widgets
+@using RubyRangerLMS_BlazorAccounts.Models
+@using RubyRangerLMS_BlazorAccounts.Services
+@inject ITeacherService<Teacher> TeacherService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Add Teacher</PageTitle>
+
+<EditForm Model="teacher" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="FullName">Full Name</label>
+        <InputText id="FullName" class="form-control" @bind-Value="teacher.FullName" />
+    </div>
+    <div class="form-group">
+        <label for="UserName">User Name</label>
+        <InputText id="UserName" class="form-control" @bind-Value="teacher.UserName" />
+    </div>
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <InputText id="Email" class="form-control" @bind-Value="teacher.Email" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add</button>
+</EditForm>
+
+<div class="card">
+    @foreach (var widgetType in Widgets)
+    {
+        <DynamicComponent Type="widgetType"></DynamicComponent>
+    }
+</div>
+
+@code {
+
+    private Teacher teacher = new Teacher();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Perform any initialization or data loading operations here
+        // Example: Loading some data if necessary
+        await Task.CompletedTask; // Replace with actual initialization logic if needed
+    }
+    private async Task HandleValidSubmit()
+    {
+        await TeacherService.CreateAsync(teacher);
+        NavigationManager.NavigateTo("/teacher");
+
+    }
+
+    public List<Type> Widgets { get; set; } = new List<Type>() { typeof(TeacherCountWidget) };
+
+
+
+}
