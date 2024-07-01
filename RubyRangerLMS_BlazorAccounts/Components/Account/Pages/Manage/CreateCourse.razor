@@ -1,5 +1,8 @@
 ﻿@page "/createcourse"
+@attribute [Authorize(Roles = "Teacher")]
+
 @using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
 @using RubyRangerLMS_BlazorAccounts.Data
 @using RubyRangerLMS_BlazorAccounts.Services;
