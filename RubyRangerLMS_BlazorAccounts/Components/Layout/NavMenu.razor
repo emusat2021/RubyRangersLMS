@@ -19,22 +19,40 @@
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
+            <NavLink class="nav-link" href="teacher">
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Teachers Index
             </NavLink>
         </div>
-
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="addteacher">
+                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Add Teacher
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="removeteacher">
+                <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> Remove Teacher
+            </NavLink>
+        </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="student">
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Students
             </NavLink>
         </div>
-
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="auth">
                 <span class="bi bi-lock-nav-menu" aria-hidden="true"></span> Auth Required
             </NavLink>
         </div>
+
+        <AuthorizeView Roles="Teacher">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="createcourse">
+                        <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> Create Course
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
 
         <AuthorizeView>
             <Authorized>
@@ -72,7 +90,7 @@
 @code {
     private string? currentUrl;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
         NavigationManager.LocationChanged += OnLocationChanged;
