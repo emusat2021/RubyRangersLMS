@@ -23,9 +23,9 @@ namespace RubyRangerLMS_BlazorAccounts.Services
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<Student>() ?? new Student();
         }
-        public async Task<Student> UpdateAsync(Guid id, Student student)
+        public async Task<Student> UpdateAsync(Student student)
         {
-            var response = await httpClient.PostAsJsonAsync($"api/student/update/{id}", student);
+            var response = await httpClient.PutAsJsonAsync($"api/student/update/{student.Id}", student);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<Student>() ?? new Student();
         }
