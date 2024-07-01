@@ -9,6 +9,14 @@ using RubyRangerLMS_BlazorAccounts.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddScoped(option =>
+new HttpClient
+{
+    BaseAddress = new Uri(builder.Configuration["https://localhost:7085"] ?? "http://localhost:5033")
+});
+
+builder.Services.AddHttpClient("DefaultClient"); // You can specify a name for your client
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -47,6 +55,8 @@ new HttpClient
 // This might be unnecessairy since we have AddIdentityCore<>
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 builder.Services.AddScoped<IService<Student>, StudentService>();
+builder.Services.AddScoped<ITeacherService<Teacher>, TeacherService>();
+
 builder.Services.AddScoped<CourseService>();
 
 var app = builder.Build();

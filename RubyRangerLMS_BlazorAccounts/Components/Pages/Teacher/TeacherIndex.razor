@@ -1,0 +1,67 @@
+﻿@page "/teacher"
+@using RubyRangerLMS_BlazorAccounts.Components.Widgets
+@using RubyRangerLMS_BlazorAccounts.Models
+@using RubyRangerLMS_BlazorAccounts.Services
+@inject ITeacherService<Teacher> TeacherService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Teachers</PageTitle>
+
+<h3>Teachers</h3>
+
+
+
+@if (teachers == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-light">
+        <thead class="table-primary">
+            <tr>
+                <th>Teacher FullName</th>
+                <th>Teacher Email</th>
+                <th>Teacher Id</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var teacher in teachers)
+            {
+                <tr>
+                    <td>@teacher.FullName</td>
+                    <td>@teacher.Email</td>
+                    <td>@teacher.Id</td>
+                    <td>
+                        <a href="@($"teacherdetails/{teacher.Id}")" class="btn btn-outline-primary">
+                            Add Teacher
+                        </a>
+                        <a href="@($"teacherdetails/{teacher.Id}")" class="btn btn-outline-primary">
+                            Remove Teacher
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+<div class="card">
+    @foreach (var widgetType in Widgets)
+    {
+        <DynamicComponent Type="widgetType"></DynamicComponent>
+    }
+</div>
+
+
+
+
+@code {
+    private List<Teacher> teachers = new List<Teacher>();
+    public List<Type> Widgets { get; set; } = new List<Type>() { typeof(TeacherCountWidget) };
+
+    protected override async Task OnInitializedAsync()
+    {
+        teachers = await TeacherService.GetAllAsync();
+    }
+}
