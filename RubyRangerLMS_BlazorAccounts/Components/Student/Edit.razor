@@ -11,10 +11,7 @@
 }
 else
 {
-    <EditForm Model="student" OnValidSubmit="HandleValidSubmit" FormName="EditStudentForm">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-
+    <form @onsubmit="HandleValidSubmit" @formname="EditStudentForm">
         <div class="form-group">
             <label for="fullName">Full Name</label>
             <InputText id="fullName" class="form-control" @bind-Value="student.FullName" />
@@ -30,7 +27,7 @@ else
 
         <button type="submit" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" @onclick="Cancel">Cancel</button>
-    </EditForm>
+    </form>
 }
 
 @code {
@@ -47,7 +44,7 @@ else
     private void HandleValidSubmit()
     {
         StudentService.UpdateAsync(student);
-        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+        NavigationManager.NavigateTo("/student");
     }
 
     private void Cancel()
