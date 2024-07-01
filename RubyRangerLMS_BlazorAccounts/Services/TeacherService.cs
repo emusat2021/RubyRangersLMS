@@ -17,13 +17,13 @@ namespace RubyRangerLMS_BlazorAccounts.Services
 
         public async Task<bool> CreateAsync(Teacher teacher)
         {
-            var response = await _httpClient.PostAsJsonAsync("teachers", teacher);
+            var response = await _httpClient.PostAsJsonAsync("api/teachers", teacher);
             return response.IsSuccessStatusCode;
         }
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var response = await _httpClient.DeleteAsync($"teachers/{id}");
+            var response = await _httpClient.DeleteAsync($"api/teachers/{id}");
             return response.IsSuccessStatusCode;
         }
 
