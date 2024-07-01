@@ -74,6 +74,7 @@ else
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
@@ -100,5 +101,4 @@ using(var scope = app.Services.CreateScope())
         }
     }
 }
-
 app.Run();
