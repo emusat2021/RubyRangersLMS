@@ -1,4 +1,5 @@
 ﻿@page "/student"
+@rendermode InteractiveServer
 @using RubyRangerLMS_BlazorAccounts.Models
 @using RubyRangerLMS_BlazorAccounts.Services
 @inject IService<Student> StudentService
@@ -12,6 +13,9 @@
 }
 else
 {
+    <td>
+        <button class="btn btn-primary" @onclick="()=> CreateStudent()">Create new Student</button>
+    </td>
     <table class="table">
         <thead>
             <tr>
@@ -28,7 +32,7 @@ else
                     <td>@student.Email</td>
                     <td>@student.PhoneNumber</td>
                     <td>
-                        <button class="btn btn-primary" @onclick="()=> NavigateToDetail(student.Id)">View</button>
+                        <button class="btn btn-primary" @onclick="()=> NavigateToEdite(student.Id)">Edite</button>
                     </td>
                     <td>
                         <button class="btn btn-primary" @onclick="()=> DeleteStudent(student.Id)">Delete</button>
@@ -47,10 +51,10 @@ else
         students = await StudentService.GetAllAsync();
     }
 
-    protected void NavigateToDetail(Guid StudentId)
+    protected void NavigateToEdite(Guid StudentId)
     {
         var id = StudentId.ToString();
-        var url = $"details/{id}";
+        var url = $"edit-student/{id}";
         NavigationManager.NavigateTo(url);
     }
 
@@ -58,5 +62,11 @@ else
     {
         StudentService.DeleteAsync(StudentId);
         NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }
+
+    protected void CreateStudent()
+    {
+        var url = $"create-student/";
+        NavigationManager.NavigateTo(url);
     }
 }

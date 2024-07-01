@@ -1,0 +1,39 @@
+﻿@page "/create-student"
+@rendermode InteractiveServer
+@inject IService<Student> StudentService
+@inject NavigationManager NavigationManager
+
+<h3>Create new student</h3>
+
+<form @onsubmit="HandleValidSubmit" @formname="CreateStudentForm">
+    <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <InputText id="fullName" class="form-control" @bind-Value="student.FullName" />
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <InputText id="email" class="form-control" @bind-Value="student.Email" />
+    </div>
+    <div class="form-group">
+        <label for="phoneNumber">Phone Number</label>
+        <InputText id="phoneNumber" class="form-control" @bind-Value="student.PhoneNumber" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-secondary" @onclick="Cancel">Cancel</button>
+</form>
+
+@code {
+    private Student student = new Student();
+
+    private void HandleValidSubmit()
+    {
+        StudentService.CreateAsync(student);
+        NavigationManager.NavigateTo("/student");
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/student");
+    }
+}
