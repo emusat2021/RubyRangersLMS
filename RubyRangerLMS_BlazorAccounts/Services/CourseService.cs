@@ -15,7 +15,7 @@ namespace RubyRangerLMS_BlazorAccounts.Services
 
         public async Task<bool> CreateCourseAsync(CreateCourseVM model)
         {
-            var response = await httpClient.PostAsJsonAsync("api/update/", model);
+            var response = await httpClient.PostAsJsonAsync("api/course/", model);
             return response.IsSuccessStatusCode;
         }
     }
