@@ -1,0 +1,108 @@
+﻿@page "/createcourse"
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Identity
+@using RubyRangerLMS_BlazorAccounts.Data
+@using RubyRangerLMS_BlazorAccounts.Services;
+
+@inject CourseService CourseManager
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+
+@rendermode InteractiveServer
+
+@inject UserManager<ApplicationUser> UserManager
+@inject IUserStore<ApplicationUser> UserStore
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h1>Create Course</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <EditForm Model="newCourse" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterCourse" FormName="courseRegister">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group">
+                <label for="name">Course Name</label>
+                <InputText id="name" class="form-control" @bind-Value="newCourse.Name" placeholder="Course Name" />
+                <ValidationMessage For="@(() => newCourse.Name)" />
+            </div>
+
+            <div class="form-group">
+                <label for="description">Course Description</label>
+                <InputTextArea id="description" class="form-control" @bind-Value="newCourse.Description" placeholder="Course Description" />
+                <ValidationMessage For="@(() => newCourse.Description)" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="startdate">Start Date</label>
+                <InputDate id="startdate" class="form-control" @bind-Value="newCourse.StartDate" />
+                <ValidationMessage For="@(() => newCourse.StartDate)" />
+            </div>
+
+            <div class="col-md-6">
+                <label for="enddate">End Date</label>
+                <InputDate id="enddate" class="form-control" @bind-Value="newCourse.EndDate" />
+                <ValidationMessage For="@(() => newCourse.EndDate)" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create Course</button>
+        </EditForm>
+
+    </div>
+</div>
+@code {
+    [SupplyParameterFromForm]
+    private Models.CreateCourseVM newCourse { get; set; } = new Models.CreateCourseVM
+        {
+            // So you don't have to go from like 1970 to now...
+            StartDate = DateTime.Today,
+            EndDate = DateTime.Today
+        };
+
+    // Used to later redirect to list of Courses.
+    private string? ReturnUrl { get; set; }
+
+    // Gets current users id which is needed to bind Course to Teacher.
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            var currentUser = await UserManager.GetUserAsync(user);
+            if (currentUser != null)
+            {
+                newCourse.TeacherId = Guid.Parse(currentUser.Id);
+            }
+        }
+    }
+
+    // TODO: Implement api call to Course endpoint to create a course.
+    public async Task<bool> RegisterCourse(EditContext editContext)
+    {
+        return await CourseManager.CreateCourseAsync(newCourse);
+    }
+
+    public class CourseVM
+    {
+        [Required]
+        public Guid TeacherId { get; set; }
+
+        [Required]
+        [Display(Name = "Course Name")]
+        [DataType(DataType.Text)]
+        [StringLength(32, ErrorMessage = "Course Name needs to be between 2 - 32 Characters.", MinimumLength = 2)]
+        public string Name { get; set; }
+
+        [Display(Name = "Course Description")]
+        [DataType(DataType.MultilineText)]
+        public string? Description { get; set; }
+
+        [Required]
+        public DateTime StartDate { get; set; }
+        [Required]
+        public DateTime EndDate { get; set; }
+    }
+}
