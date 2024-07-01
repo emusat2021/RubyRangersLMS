@@ -33,10 +33,7 @@ else
                     <td>@teacher.Email</td>
                     <td>@teacher.Id</td>
                     <td>
-                        <a href="@($"teacherdetails/{teacher.Id}")" class="btn btn-outline-primary">
-                            Add Teacher
-                        </a>
-                        <a href="@($"teacherdetails/{teacher.Id}")" class="btn btn-outline-primary">
+                        <a href="@($"removeteacherdetails/{teacher.Id}")" class="btn btn-outline-primary">
                             Remove Teacher
                         </a>
                     </td>
@@ -46,6 +43,13 @@ else
         </tbody>
     </table>
 }
+<div></div>
+<div class="card">
+    <a href="@($"addTeacher")" class="btn btn-outline-primary">
+        Add Teacher
+    </a>
+</div>
+
 <div class="card">
     @foreach (var widgetType in Widgets)
     {
