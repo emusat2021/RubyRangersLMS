@@ -47,6 +47,7 @@ new HttpClient
 // This might be unnecessairy since we have AddIdentityCore<>
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 builder.Services.AddScoped<IService<Student>, StudentService>();
+builder.Services.AddScoped<CourseService>();
 
 var app = builder.Build();
 
