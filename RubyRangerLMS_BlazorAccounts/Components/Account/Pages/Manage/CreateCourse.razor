@@ -7,6 +7,7 @@
 @using RubyRangerLMS_BlazorAccounts.Data
 @using RubyRangerLMS_BlazorAccounts.Services;
 
+@inject NavigationManager navigationManager
 @inject CourseService CourseManager
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
@@ -83,9 +84,16 @@
     }
 
     // TODO: Implement api call to Course endpoint to create a course.
-    public async Task<bool> RegisterCourse(EditContext editContext)
+    public async void RegisterCourse(EditContext editContext)
     {
-        return await CourseManager.CreateCourseAsync(newCourse);
+        bool result = await CourseManager.CreateCourseAsync(newCourse);
+        if (result)
+        {
+            navigationManager.NavigateTo("https://localhost:7158/");
+        } else
+        {
+            navigationManager.NavigateTo("https://localhost:7158/");
+        }
     }
 
     public class CourseVM
