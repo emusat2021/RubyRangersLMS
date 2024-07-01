@@ -30,8 +30,10 @@ namespace RubyRangersLMS_API.Data
                   }
               });
 
-            CreateMap<CourseDtoPost, Course>();
-            CreateMap<Course, CourseDtoPost>();
+            CreateMap<CourseDtoPost, Course>()
+                .ForMember(dest => dest.Modules, opt => opt.MapFrom(src => src.Modules));
+            CreateMap<Course, CourseDtoPost>()
+                .ForMember(dest => dest.Modules, opt => opt.MapFrom(src => src.Modules));
         }
     }
 
@@ -52,10 +54,9 @@ namespace RubyRangersLMS_API.Data
             CreateMap<ModuleDtoGet, Module>();
 
             CreateMap<ModuleDtoPost, Module>()
-              .ForMember(dest => dest.CourseId, opt => opt.Ignore()) // CourseId is automatically set already
-              .ForMember(dest => dest.Activities, opt => opt.MapFrom(src => src.Activities));
-
-            CreateMap<Module, ModuleDtoPost>();
+                .ForMember(dest => dest.Activities, opt => opt.MapFrom(src => src.Activities));
+            CreateMap<Module, ModuleDtoPost>()
+                .ForMember(dest => dest.Activities, opt => opt.MapFrom(src => src.Activities));
         }
     }
 
@@ -68,9 +69,9 @@ namespace RubyRangersLMS_API.Data
             CreateMap<ActivityDtoGet, Activity>();
 
             CreateMap<ActivityDtoPost, Activity>()
-              .ForMember(dest => dest.ModuleId, opt => opt.MapFrom(src => src.ModuleId));
-
-            CreateMap<Activity, ActivityDtoPost>();
+                .ForMember(dest => dest.ModuleId, opt => opt.MapFrom(src => src.ModuleId));
+            CreateMap<Activity, ActivityDtoPost>()
+                .ForMember(dest => dest.ModuleId, opt => opt.MapFrom(src => src.ModuleId));
         }
     }
 }

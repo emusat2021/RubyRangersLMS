@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RubyRangersLMS_API.Dtos.ModuleDtos
 {
-    public class ModuleDtoPost : CurriculumEntity
-    {
-        [Required]
-        public Guid CourseId { get; set; }
-        [Required]
-        public ICollection<ActivityDtoPost> Activities { get; set; } = new List<ActivityDtoPost>();
-    }
+        public class ModuleDtoPost : CurriculumEntity
+        {
+            [Required]
+            public Guid CourseId { get; set; }
+            [Required]
+            public ICollection<ActivityDtoPost> Activities { get; set; } = new List<ActivityDtoPost>();
+        }
 }

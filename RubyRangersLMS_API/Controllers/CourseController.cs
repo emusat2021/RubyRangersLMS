@@ -34,51 +34,73 @@ namespace RubyRangersLMS_API.Controllers
             return Ok(_mapper.Map<IEnumerable<CourseDtoGet>>(courses));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")] // [FromRoute]
         public async Task<ActionResult<CourseDtoGet>> GetCourse(Guid id)
         {
             var course = await _uow.CourseRepository.GetById(id);
 
-            // All validation logic is left
+            if (course == null)
+            {
+                return NotFound();
+            }
             return Ok(_mapper.Map<CourseDtoGet>(course));
         }
         [HttpPost]
         public async Task<IActionResult> PostCourse([FromBody] CourseDtoPost courseDtoPost)
         {
-            var courseEntity = _mapper.Map<Course>(courseDtoPost);
-
-            var modulesEntities = courseDtoPost.Modules.Select(moduleDtoPost =>
-                _mapper.Map<Module>(moduleDtoPost)).ToList();
-            var activitiesEntities = courseDtoPost.Modules.SelectMany(moduleDtoPost =>
-                moduleDtoPost.Activities).Select(activityDtoPost =>
-                _mapper.Map<Activity>(activityDtoPost)).ToList();
-
-            foreach (var module in modulesEntities)
+            if (!ModelState.IsValid)
             {
-                // Dates should be cloned from Course
+                return BadRequest(ModelState);
             }
 
-            foreach (var activity in activitiesEntities)
+            var course = _mapper.Map<Course>(courseDtoPost);
+
+            foreach (var module in course.Modules)
             {
-                // Same here
+                module.CourseId = course.Id;
+                foreach (var activity in module.Activities)
+                {
+                    activity.ModuleId = module.Id;
+                }
             }
 
-            _uow.CourseRepository.Create(courseEntity);
+            _uow.CourseRepository.Create(course);
 
-            // Complete the validation and dont forget doing the other APi's
-            try
-            {
-                await _uow.SaveAsync();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            await _uow.SaveAsync();
 
-            return Ok(new { message = "Course created successfully." });
+            var courseDtoGet = _mapper.Map<CourseDtoGet>(course);
+            return CreatedAtAction(nameof(GetCourse), new { id = course.Id }, courseDtoGet);
         }
     }
 }
 
-
+//Testjson för Post
+//{
+//  "Id": "123e4567-e89b-12d3-a456-426614174000",
+//  "Name": "Course Name",
+//  "Description": "Course Description.",
+//  "StartDate": "2024-07-01T00:00:00",
+//  "EndDate": "2024-12-01T00:00:00",
+//  "TeacherId": "1cae9ed4-c6ad-4979-a31f-db26570daee2",
+//  "Modules": [
+//    {
+//        "Id": "223e4567-e89b-12d3-a456-426614174001",
+//      "Name": "Module Name",
+//      "Description": "Module Description.",
+//      "StartDate": "2024-07-01T00:00:00",
+//      "EndDate": "2024-08-01T00:00:00",
+//      "CourseId": "123e4567-e89b-12d3-a456-426614174000",
+//      "Activities": [
+//        {
+//            "Id": "323e4567-e89b-12d3-a456-426614174002",
+//          "Name": "Activity Name",
+//          "Description": "Activity Description",
+//          "StartDate": "2024-07-01T00:00:00",
+//          "EndDate": "2024-07-07T00:00:00",
+//          "ModuleId": "223e4567-e89b-12d3-a456-426614174001"
+//        }
+//      ]
+//    }
+//  ]
+//}
 
