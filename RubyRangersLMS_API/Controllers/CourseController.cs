@@ -27,6 +27,7 @@ namespace RubyRangersLMS_API.Controllers
             return Ok(courses);
         }
 
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Course>> GetCourse(Guid id)
         {

@@ -26,6 +26,11 @@
 @code {
     private Student student = new Student();
 
+    protected override async Task OnInitializedAsync()
+    {
+        student.Courses = (await StudentService.GetEmptyStudentWithAllCoursesAsync()).Courses;
+    }
+
     private void HandleValidSubmit()
     {
         StudentService.CreateAsync(student);

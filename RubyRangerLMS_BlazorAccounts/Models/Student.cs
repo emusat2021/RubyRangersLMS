@@ -1,4 +1,6 @@
-﻿namespace RubyRangerLMS_BlazorAccounts.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace RubyRangerLMS_BlazorAccounts.Models
 {
     public class Student
     {
@@ -13,5 +15,8 @@
         public bool TwoFactorEnabled { get; set; }
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
+
+        [NotMapped]
+        public List<CreateCourseVM> Courses { get; set; }
     }
 }

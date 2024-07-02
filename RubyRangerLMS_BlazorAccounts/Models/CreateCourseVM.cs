@@ -4,6 +4,8 @@ namespace RubyRangerLMS_BlazorAccounts.Models
 {
     public class CreateCourseVM
     {
+        public Guid id { get; set; }
+
         [Required]
         public Guid TeacherId { get; set; }
 

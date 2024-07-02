@@ -1,4 +1,5 @@
-﻿using RubyRangerLMS_BlazorAccounts.Models;
+﻿using Azure;
+using RubyRangerLMS_BlazorAccounts.Models;
 
 namespace RubyRangerLMS_BlazorAccounts.Services
 {
@@ -20,8 +21,10 @@ namespace RubyRangerLMS_BlazorAccounts.Services
         public async Task<Student> GetByIdAsync(Guid id)
         {
             var response = await httpClient.GetAsync($"api/student/{id}");
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<Student>() ?? new Student();
+            Student student = await response.Content.ReadFromJsonAsync<Student>() ?? new Student();
+            var courses = await GetEmptyStudentWithAllCoursesAsync();
+            student.Courses = courses.Courses;
+            return student;
         }
 
         public async void CreateAsync(Student student)
@@ -31,6 +34,7 @@ namespace RubyRangerLMS_BlazorAccounts.Services
             student.TwoFactorEnabled = false;
             student.LockoutEnabled = false;
             student.AccessFailedCount = 0;
+            // here you need to check if the CourseId is the same as chosen one
             student.CourseId = Guid.Parse("1cae9ed4-c6ad-4979-a31f-db26570daee2");
 
             var response = await httpClient.PostAsJsonAsync($"api/student/add", student);
@@ -48,5 +52,14 @@ namespace RubyRangerLMS_BlazorAccounts.Services
             var response = await httpClient.DeleteAsync($"api/student/delete/{id}");
             response.EnsureSuccessStatusCode();
         }
+
+        public async Task<Student> GetEmptyStudentWithAllCoursesAsync()
+        {
+            var response = await httpClient.GetAsync($"api/Course");
+            Student student = new Student();
+            student.Courses = await response.Content.ReadFromJsonAsync<List<CreateCourseVM>>() ?? new List<CreateCourseVM>();
+            return student;
+        }
+
     }
 }
