@@ -47,9 +47,8 @@ namespace RubyRangersLMS_API.Controllers
             return Ok(_mapper.Map<CourseDtoGet>(course));
         }
         [HttpPost]
-        public async Task<IActionResult> PostCourse(CourseDtoPost courseDtoPost)
+        public async Task<IActionResult> PostCourse([FromBody] CourseDtoPost courseDtoPost)
         {
-            //ModuleDtoPost modules = new ModuleDtoPost();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
