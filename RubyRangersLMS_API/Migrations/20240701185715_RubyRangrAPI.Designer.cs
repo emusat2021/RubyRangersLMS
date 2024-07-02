@@ -12,8 +12,8 @@ using RubyRangersLMS_API.Data;
 namespace RubyRangersLMS_API.Migrations
 {
     [DbContext(typeof(LMSContext))]
-    [Migration("20240628125813_init")]
-    partial class init
+    [Migration("20240701185715_RubyRangrAPI")]
+    partial class RubyRangrAPI
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -151,6 +151,8 @@ namespace RubyRangersLMS_API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CourseId");
+
                     b.ToTable("Students");
                 });
 
@@ -256,6 +258,17 @@ namespace RubyRangersLMS_API.Migrations
                         .IsRequired();
 
                     b.Navigation("AttachedToCurriculumEntity");
+                });
+
+            modelBuilder.Entity("RubyRangersLMS_API.Entities.Student", b =>
+                {
+                    b.HasOne("RubyRangersLMS_API.Entities.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("RubyRangersLMS_API.Entities.Activity", b =>

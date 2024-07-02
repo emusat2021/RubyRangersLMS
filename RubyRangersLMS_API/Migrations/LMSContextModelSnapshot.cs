@@ -148,6 +148,8 @@ namespace RubyRangersLMS_API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CourseId");
+
                     b.ToTable("Students");
                 });
 
@@ -253,6 +255,17 @@ namespace RubyRangersLMS_API.Migrations
                         .IsRequired();
 
                     b.Navigation("AttachedToCurriculumEntity");
+                });
+
+            modelBuilder.Entity("RubyRangersLMS_API.Entities.Student", b =>
+                {
+                    b.HasOne("RubyRangersLMS_API.Entities.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("RubyRangersLMS_API.Entities.Activity", b =>
