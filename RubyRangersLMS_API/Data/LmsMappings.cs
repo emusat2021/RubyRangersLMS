@@ -8,7 +8,9 @@ namespace RubyRangersLMS_API.Data
     {
         public LmsMappings()
         {
-            CreateMap<Student, StudentDto>();
+            CreateMap<Student, StudentDto>()
+                 .ForMember(dto => dto.CourseName, opt => opt.MapFrom(src => src.Course.Name));
+
             CreateMap<StudentDto, Student>();
         }
     }

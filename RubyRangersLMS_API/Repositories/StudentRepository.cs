@@ -15,7 +15,7 @@ namespace RubyRangersLMS_API.Repositories
         }
         public async Task<IEnumerable<Student>> GetAll()
         {
-            return await context.Students.ToListAsync();
+            return await context.Students.Include(s => s.Course).ToListAsync();
         }
 
         public async Task<Student> GetById(Guid id)

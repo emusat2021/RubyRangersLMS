@@ -4,7 +4,9 @@
     {
         Task<List<T>> GetAllAsync();
         Task<T> GetByIdAsync(Guid id);
-        Task<T> UpdateAsync(Guid id, T entity);
+        Task<T> GetEmptyStudentWithAllCoursesAsync();
+        void UpdateAsync(T entity);
+        void CreateAsync(T entity);
         void DeleteAsync(Guid id);
     }
 }
