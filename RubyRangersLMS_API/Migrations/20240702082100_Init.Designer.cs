@@ -12,7 +12,7 @@ using RubyRangersLMS_API.Data;
 namespace RubyRangersLMS_API.Migrations
 {
     [DbContext(typeof(LMSContext))]
-    [Migration("20240629202229_Init")]
+    [Migration("20240702082100_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -39,7 +39,8 @@ namespace RubyRangersLMS_API.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
